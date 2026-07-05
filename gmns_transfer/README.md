@@ -33,7 +33,7 @@ Specification**, an open, human-readable standard for transportation networks
 stewarded by the Zephyr Foundation. Using GMNS is what makes this model portable
 and inspectable: nodes, links, and movements are plain CSVs any tool can read.
 
-- **GMNS specification** — https://zephyr-data-specs.github.io/GMNS/spec/movement/
+- **GMNS specification** — https://zephyr-data-specs.github.io/GMNS/
 - **Zephyr · Network Standard & Tools** — https://zephyrtransport.org/projects/2-network-standard-and-tools/
 
 ---
