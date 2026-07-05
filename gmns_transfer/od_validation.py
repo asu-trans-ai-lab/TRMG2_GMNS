@@ -1,5 +1,10 @@
 """od_validation.py — is the upstream 3-step OD reasonable? (MAJOR verification task)
 
+This is GATE ③ (assignment / count validation) of the fuller QA ladder in
+doc/OD_VALIDATION_FRAMEWORK.md: ① seed data & trip generation, ② trip distribution
+& trip-length, ③ assignment/counts (here), ④ direct OD-to-OD when the official
+matrix is shared. Validate upstream-first; do not start from assignment.
+
 We do NOT have TRMG2's official pre-assignment OD matrix. So we validate our
 reproduced OD the only way that needs no extra input: assign it, sum all four
 periods to a DAILY loaded network, and compare link volumes to the observed

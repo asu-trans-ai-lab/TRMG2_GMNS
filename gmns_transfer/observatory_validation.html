@@ -10,51 +10,56 @@
 :root{--paper:#F2EBDC;--paper-2:#EBE2CD;--ink:#0E1A2A;--ink-2:#384556;--ochre:#B7741C;--crimson:#9C2E22;--forest:#3D6B47;--teal:#1F4E5F;--serif:"Newsreader",ui-serif,Georgia,serif;--mono:"JetBrains Mono",ui-monospace,Menlo,monospace}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:15px;line-height:1.5}
-body{padding:30px 40px 70px;max-width:1200px;margin:0 auto}
+body{padding:30px 40px 70px;max-width:1220px;margin:0 auto}
 em{font-style:italic;color:var(--ochre);font-weight:500}
+a{color:var(--teal)}
 header{border-top:3px solid var(--ink);border-bottom:1px solid var(--ink);padding:16px 0 13px;margin-bottom:20px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
 .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2)}
 header h1{font-weight:600;font-size:29px;letter-spacing:-.012em;margin-top:6px}
 .tabs{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;text-align:right;color:#a99f86}
 .tabs .on{color:var(--ochre);font-weight:600;border-bottom:2px solid var(--ochre);padding-bottom:2px}
-.tabs .crumb{color:var(--ink-2);margin-bottom:3px}
-.tabs a{color:var(--teal)}
-.lede{font-size:16px;line-height:1.5;max-width:74ch;color:var(--ink-2);margin-bottom:24px}
+.tabs .crumb{color:var(--ink-2);margin-bottom:3px}.tabs a{color:var(--teal)}
+.lede{font-size:16px;line-height:1.5;max-width:76ch;color:var(--ink-2);margin-bottom:22px}
 .lede b{color:var(--ink);font-weight:600}
-.sec{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-2);border-bottom:1px solid var(--ink);padding-bottom:6px;margin:28px 0 16px;display:flex;justify-content:space-between;align-items:baseline}
+.sec{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-2);border-bottom:1px solid var(--ink);padding-bottom:6px;margin:26px 0 16px;display:flex;justify-content:space-between;align-items:baseline}
 .sec b{font-family:var(--serif);font-size:18px;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink)}
-/* ordered gates */
-.gates{display:grid;grid-template-columns:1fr 44px 1fr;gap:0;align-items:stretch;margin-bottom:6px}
-.gate{border:1px solid var(--ink);background:var(--paper);padding:18px 20px}
-.gate.first{border-top:4px solid var(--ochre)}
-.gate .no{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--ochre);font-weight:600}
-.gate h3{font-size:20px;font-weight:600;margin:4px 0 8px}
-.gate .def{font-family:var(--mono);font-size:12px;background:var(--paper-2);border:1px solid #cdbf9e;padding:8px 10px;margin:8px 0;line-height:1.5;color:var(--ink)}
-.gate p{font-size:13.5px;color:var(--ink-2);line-height:1.5}
-.gate .rule{font-size:13px;color:var(--ink);margin-top:8px}
-.gate .rule b{color:var(--crimson)}
-.arrow{display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:26px;color:var(--ink-2)}
-.gate.second{opacity:.96}
-.gate.second .no{color:var(--teal)}
-.stop{font-family:var(--mono);font-size:12px;color:var(--crimson);text-align:center;margin:12px 0 2px;letter-spacing:.04em}
-/* metric list */
-.metrics{display:grid;grid-template-columns:1fr 1fr;gap:0 26px;font-size:13.5px}
-.metrics .m{padding:8px 0;border-bottom:1px dotted #b7ad94}
-.metrics .m b{font-family:var(--mono);font-size:12px;color:var(--teal)}
-.metrics .m small{color:var(--ink-2)}
-/* target bars */
-.bars{border:1px solid var(--ink);background:var(--paper);padding:16px}
-.brow{display:grid;grid-template-columns:120px 1fr 46px;align-items:center;gap:10px;margin:5px 0;font-size:13px}
-.brow .bwrap{background:var(--paper-2);height:16px;border:1px solid #cdbf9e;position:relative}
-.brow .b{height:100%;background:var(--teal);position:absolute;left:0;top:0}
-.brow .b.all{background:var(--ochre)}
-.brow .v{font-family:var(--mono);font-size:11px;text-align:right;font-variant-numeric:tabular-nums}
-.brow .nm{font-family:var(--mono);font-size:11px;color:var(--ink-2)}
-.brow.tot .nm,.brow.tot .v{font-weight:600;color:var(--ink)}
-.note{font-size:12.5px;color:var(--ink-2);line-height:1.55;margin-top:12px}.note b{color:var(--ink)}
-.callout{border:1px solid var(--ink);background:var(--paper-2);padding:14px 18px;margin-top:14px;font-size:13.5px;line-height:1.55}
+/* ladder */
+.ladder{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border:1px solid var(--ink)}
+.rung{padding:16px 18px;border-right:1px solid var(--ink);position:relative;background:var(--paper)}
+.rung:last-child{border-right:none}
+.rung .no{font-family:var(--mono);font-size:11px;letter-spacing:.14em;font-weight:600}
+.rung.g1 .no,.rung.g1{border-top:4px solid var(--forest)} .rung.g1 .no{color:var(--forest)}
+.rung.g2{border-top:4px solid var(--ochre)} .rung.g2 .no{color:var(--ochre)}
+.rung.g3{border-top:4px solid var(--teal)} .rung.g3 .no{color:var(--teal)}
+.rung h3{font-size:17px;font-weight:600;margin:4px 0 4px;line-height:1.2}
+.rung .q{font-style:italic;color:var(--ink);font-size:13.5px;margin-bottom:9px}
+.rung ul{list-style:none;font-size:12.5px;line-height:1.5;color:var(--ink-2)}
+.rung li{padding-left:13px;position:relative;margin-bottom:3px}
+.rung li::before{content:"·";position:absolute;left:2px;color:var(--ochre);font-weight:700}
+.rung .stepno{position:absolute;top:14px;right:16px;font-family:var(--serif);font-size:30px;font-weight:600;color:#e0d6bd;line-height:1}
+.flowbar{display:flex;justify-content:center;align-items:center;gap:10px;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);margin:10px 0 2px}
+.flowbar b{color:var(--crimson)}
+.callout{border:1px solid var(--ink);background:var(--paper-2);padding:13px 18px;margin-top:14px;font-size:13.5px;line-height:1.55}
 .callout b{color:var(--ink)}
-.foot{margin-top:36px;padding-top:14px;border-top:1px solid var(--ink);display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+/* magnitude sub-gate */
+.mag{border:1px solid var(--ink);border-left:4px solid var(--crimson);background:var(--paper);padding:13px 18px;margin-top:6px;font-size:14px;line-height:1.5}
+.mag .def{font-family:var(--mono);font-size:12px;background:var(--paper-2);border:1px solid #cdbf9e;padding:6px 10px;margin:7px 0;display:inline-block}
+.mag b{color:var(--crimson)}
+/* vmt/vht table + targets */
+.duo{display:grid;grid-template-columns:1.05fr 1fr;gap:28px;align-items:start}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-2);text-align:left;padding:7px 11px;border-bottom:1px solid var(--ink);background:var(--paper-2)}
+tbody td{padding:6px 11px;border-bottom:1px dotted #b7ad94}
+td.c{font-family:var(--mono);font-weight:600}
+.tablewrap{border:1px solid var(--ink)}
+.bars{border:1px solid var(--ink);background:var(--paper);padding:14px}
+.brow{display:grid;grid-template-columns:112px 1fr 42px;align-items:center;gap:9px;margin:4px 0;font-size:12.5px}
+.brow .bwrap{background:var(--paper-2);height:15px;border:1px solid #cdbf9e;position:relative}
+.brow .b{height:100%;background:var(--teal);position:absolute;left:0;top:0}.brow .b.all{background:var(--ochre)}
+.brow .v{font-family:var(--mono);font-size:11px;text-align:right}.brow .nm{font-family:var(--mono);font-size:11px;color:var(--ink-2)}
+.brow.tot .nm,.brow.tot .v{font-weight:600;color:var(--ink)}
+.note{font-size:12px;color:var(--ink-2);line-height:1.5;margin-top:9px}.note b{color:var(--ink)}
+.foot{margin-top:34px;padding-top:14px;border-top:1px solid var(--ink);display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
 </style>
 </head>
 <body>
@@ -65,63 +70,73 @@ header h1{font-weight:600;font-size:29px;letter-spacing:-.012em;margin-top:6px}
   <a href="observatory.html">1 Inventory</a> · <a href="observatory_generation.html">4 Generation</a> · <a href="observatory_destination.html">5 Destination</a> · <span class="on">9 Validation</span></div>
 </header>
 
-<p class="lede">A common situation: you have an OD demand from the first three steps, but not the
-model owner's official pre-assignment matrix. <b>How do you know your OD is
-reasonable?</b> You assign it and compare the loaded network to observed traffic
-counts — no extra input needed. This page teaches the <em>method and its order</em>;
-the numbers are reviewed with the model owners.</p>
+<p class="lede">You have an OD from the first three steps, but not the model owner's official
+pre-assignment matrix. <b>Do not start from assignment.</b> A bad loaded network can come
+from seed data, trip generation, distribution, or missing markets — <em>not just
+assignment</em>. So validation is a <b>ladder</b>: check each upstream rung before the next,
+so you fix the right problem instead of polishing a model that's missing trips.</p>
 
-<div class="sec"><b>The order is the lesson</b><span>magnitude first · pattern second</span></div>
-<div class="gates">
-  <div class="gate first">
-    <div class="no">STEP ①  ·  FIRST, ALWAYS</div>
-    <h3>Magnitude bias</h3>
-    <div class="def">bias = ( Σ modeled − Σ counted ) / Σ counted</div>
-    <p>Is the total loaded volume in the right ballpark? This is the first and
-    decisive mark.</p>
-    <div class="rule">If the bias is large, the OD is the wrong <em>size</em> — missing
-    trips or markets — and <b>you stop here and refine.</b> No correlation rescues a
-    model that is only a fraction of observed volume.</div>
+<div class="sec"><b>The QA ladder — upstream first</b><span>generation → distribution → assignment</span></div>
+<div class="ladder">
+  <div class="rung g1"><div class="stepno">1</div>
+    <div class="no">GATE ① · FIRST</div><h3>Seed data &amp; trip generation</h3>
+    <div class="q">Right <em>number</em> of trips before the network carries them?</div>
+    <ul><li>production / attraction bias by purpose</li><li>by household, income, workers, auto, employment</li><li>district totals · top-zone review</li><li>RAG: ±5–10% green · ±10–20% amber · &gt;20% red</li></ul>
   </div>
-  <div class="arrow">→</div>
-  <div class="gate second">
-    <div class="no">STEP ②  ·  ONLY AFTER ①</div>
-    <h3>Pattern</h3>
-    <div class="def">scale to equal totals, then compare <em>shape</em></div>
-    <p>Once magnitude is in range, does the OD load the network in the right
-    <em>proportions</em>? Read scale-adjusted %RMSE, correlation R², GEH — by
-    facility type, area type, and screenline.</p>
-    <div class="rule">Pattern localizes <em>where</em> any remaining shortfall sits —
-    it is a diagnosis, not a pass/fail.</div>
+  <div class="rung g2"><div class="stepno">2</div>
+    <div class="no">GATE ② · SECOND</div><h3>Trip distribution</h3>
+    <div class="q">Reasonable destinations &amp; trip <em>lengths</em> before assignment?</div>
+    <ul><li>average trip length by purpose</li><li>trip-length distribution (is the long tail there?)</li><li>intrazonal vs interzonal share</li><li>district-to-district markets · screenline OD</li></ul>
+  </div>
+  <div class="rung g3"><div class="stepno">3</div>
+    <div class="no">GATE ③ · THIRD</div><h3>Assignment &amp; counts</h3>
+    <div class="q">Does the loaded network carry the right traffic, in the right places?</div>
+    <ul><li><b>magnitude bias first</b> (see below)</li><li>then pattern: %RMSE, R², GEH&lt;5</li><li>by facility, area, screenline, volume group</li><li>VMT / VHT system check</li></ul>
   </div>
 </div>
-<div class="stop">▲ do not read Step ② while a large Step ① bias stands ▲</div>
+<div class="flowbar">a red rung upstream &nbsp;→&nbsp; <b>fix it before reading the next</b></div>
 
-<div class="sec"><b>The pattern metrics</b><span>step ② toolbox</span></div>
-<div class="metrics">
-  <div class="m"><b>scale-adjusted %RMSE</b> — shape error with the total normalized out; comparable across models of different size.</div>
-  <div class="m"><b>correlation R²</b> — do high-count links carry high modeled volume?</div>
-  <div class="m"><b>GEH &lt; 5 (%)</b> — the traffic-engineering closeness measure; share of links that pass.</div>
-  <div class="m"><b>by facility / area / screenline</b> — <small>localizes the shortfall (freeways carry through &amp; commercial travel a resident-only OD omits).</small></div>
+<div class="mag">
+  <b>Within Gate ③ — magnitude bias is still the first mark.</b>
+  <div class="def">bias = ( Σ modeled − Σ counted ) / Σ counted</div>
+  If the bias is large, the network isn't carrying the right <em>total</em> — go back
+  <em>upstream</em> (generation? distribution? missing external / commercial / NHB
+  markets? time-of-day? period aggregation?). <b>Only after magnitude is in range do you
+  read pattern metrics.</b> A good R² never rescues a model that is missing trips.
 </div>
 
-<div class="sec"><b>The target to aim for</b><span>TRMG2's own published validation</span></div>
-<div class="bars" id="bars"></div>
-<p class="note">The bar to hit is the model owner's reported accuracy. <b>Freeways
-validate tightest</b> (few, high-volume, well-counted); <b>local streets loosest</b>
-(many, low-volume, noisy) — a universal shape. A reproduction is doing well when its
-facility-type profile approaches this, <em>after</em> the magnitude bias is closed.</p>
+<div class="duo">
+  <div>
+    <div class="sec"><b>④ VMT &amp; VHT — system reasonableness</b><span>diagnose demand vs network</span></div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>VMT</th><th>VHT</th><th>Likely issue</th></tr></thead>
+      <tbody>
+        <tr><td class="c">Low</td><td class="c">Low</td><td>missing trips, or trips too short</td></tr>
+        <tr><td class="c">Low</td><td class="c">High</td><td>too much congestion on too little demand — network/capacity</td></tr>
+        <tr><td class="c">OK</td><td class="c">Low</td><td>speeds too high / congestion underrepresented</td></tr>
+        <tr><td class="c">OK</td><td class="c">High</td><td>speeds/capacity too low, bottleneck overloading</td></tr>
+        <tr><td class="c" style="color:var(--forest)">OK</td><td class="c" style="color:var(--forest)">OK</td><td>demand &amp; congestion broadly plausible</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div>
+    <div class="sec"><b>⑤ The target</b><span>TRMG2's published %RMSE</span></div>
+    <div class="bars" id="bars"></div>
+    <p class="note">Freeways validate tightest (high-volume, well-counted); local streets
+    loosest (noisy). A <b>freeway shortfall usually signals missing long-distance,
+    through, external, commercial, or NHB markets</b> — a Gate ①/② problem, not assignment.</p>
+  </div>
+</div>
 
-<div class="callout"><b>When the official OD arrives.</b> A direct OD-to-OD check —
-matrix %RMSE, coincidence ratio, 12-district cell agreement — is added on top via
-<span style="font-family:var(--mono);font-size:12px">validate_vs_matrix()</span>. The
-count-based validation above never depended on it, and stays the first line of
-verification. Method &amp; code: <span style="font-family:var(--mono);font-size:12px">od_validation.py</span>,
+<div class="callout"><b>⑥ When the official OD matrix arrives.</b> Add a direct OD-to-OD check
+— matrix %RMSE, coincidence ratio, district-cell agreement, purpose-level &amp;
+trip-length comparison — <em>on top of</em> the count validation, which stays the first
+line of verification. Method &amp; code:
+<span style="font-family:var(--mono);font-size:12px">od_validation.py</span> ·
 <a href="doc/OD_VALIDATION_FRAMEWORK.md">OD_VALIDATION_FRAMEWORK.md</a>.</div>
 
 <div class="foot"><div>observatory · tab 9 · od validation framework</div><div>trmg2 gmns transfer · transportation+ai lab · asu</div></div>
 <script>
-// TRMG2's PUBLISHED targets (the bar to aim for) — model owner's own numbers, not ours
 const TARGET=[["Freeway",10.4],["ML Highway",17.1],["TL Highway",23.2],["Major Arterial",30.0],
  ["Arterial",44.4],["Major Collector",48.8],["Collector",60.4],["Local",75.9],["All",34.6]];
 const mx=Math.max(...TARGET.map(t=>t[1]));const b=document.getElementById("bars");
