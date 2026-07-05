@@ -38,10 +38,14 @@ the browser. Each is a focused module, not an everything-page:
   (Tab 4): the 8 home-based purposes + the actual home-based-work decision tree.
 - **[observatory_destination.html](observatory_destination.html)** — *Destination
   Choice* (Tab 5): the nested logit over 12 districts + a real AM district OD heatmap.
+- **[observatory_validation.html](observatory_validation.html)** — *OD Validation*
+  (Tab 9): how to verify a demand OD against counts — **magnitude bias first, then
+  pattern** — with TRMG2's published targets. Method: `od_validation.py` +
+  [doc/OD_VALIDATION_FRAMEWORK.md](doc/OD_VALIDATION_FRAMEWORK.md).
 - **[dashboard.html](dashboard.html)** — the four-step model + tensor flow-through
   at a glance.
 
-3 of the 9 observatory tabs are built; the rest are on the roadmap.
+4 of the 9 observatory tabs are built; the rest are on the roadmap.
 
 ### Built on GMNS
 

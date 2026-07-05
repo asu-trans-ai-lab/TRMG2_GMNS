@@ -45,6 +45,18 @@ scenario_NT/
 *.tex
 TCG_MATH.pdf
 
+# Interim reproduction results — discuss with the model owners (ITRE) before
+# publishing; the public repo shows the validation FRAMEWORK, not raw interim
+# count-comparison numbers. Regenerate locally with the scripts.
+review/od_validation.md
+review/od_validation.json
+review/v1_count_comparison_by_fac_type.csv
+review/v1_count_comparison_by_vol_group.csv
+review/v15_count_comparison_by_fac_type.csv
+review/v1_4period_summary.json
+review/v15_4period_summary.json
+review/district_od_AM.json
+
 # Logs, caches, scratch
 archive/
 *.log
