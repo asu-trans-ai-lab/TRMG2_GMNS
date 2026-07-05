@@ -12,6 +12,32 @@
 > `python make_od_4period.py && python matrix_ops.py AM`. Everything else — code,
 > config, network, docs — is in the repository.
 
+## The model, at a glance
+
+**What a four-step demand model is** — the first three behavioral steps and how
+they stay consistent end to end:
+
+![The four-step model — trip generation, destination choice, mode & time-of-day, and consistency across forms](doc/figures/trmg2_fourstep_primer.png)
+
+**How TRMG2 is actually built** — a tour-informed, trip-based regional model:
+population synthesis, person-level decision-tree production, mode-informs-destination
+nesting, special markets, and equilibrium feedback. This is what the open transfer
+reproduces.
+
+![TRMG2 architecture — synthetic population, person trip production, mode & destination, special markets, and equilibrium feedback](doc/figures/trmg2_architecture.png)
+
+### Built on GMNS
+
+The network here is expressed in **GMNS — the General Modeling Network
+Specification**, an open, human-readable standard for transportation networks
+stewarded by the Zephyr Foundation. Using GMNS is what makes this model portable
+and inspectable: nodes, links, and movements are plain CSVs any tool can read.
+
+- **GMNS specification** — https://zephyr-data-specs.github.io/GMNS/spec/movement/
+- **Zephyr · Network Standard & Tools** — https://zephyrtransport.org/projects/2-network-standard-and-tools/
+
+---
+
 An open reproduction of the **Triangle Regional Model (TRMG2)**
 full four-step demand model and traffic assignment, expressed as a **differentiable
 tensor (Flow-Through-Tensor) computational graph** and driven by a compact
