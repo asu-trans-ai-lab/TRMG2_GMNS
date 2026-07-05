@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TRMG2 Model Observatory · Tab 1 — Model Inventory</title>
+<meta name="viewport" content="width=1200">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F2EBDC; --paper-2:#EBE2CD; --ink:#0E1A2A; --ink-2:#384556;
+  --ochre:#B7741C; --crimson:#9C2E22; --forest:#3D6B47; --teal:#1F4E5F;
+  --serif:"Newsreader",ui-serif,Georgia,serif; --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:15px;line-height:1.5}
+body{padding:30px 40px 70px;max-width:1320px;margin:0 auto}
+em{font-style:italic;color:var(--ochre);font-weight:500}
+a{color:var(--teal)}
+.num{font-variant-numeric:tabular-nums}
+
+/* masthead */
+header{border-top:3px solid var(--ink);border-bottom:1px solid var(--ink);padding:16px 0 13px;margin-bottom:22px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
+.eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2)}
+header h1{font-weight:600;font-size:30px;letter-spacing:-0.012em;line-height:1.05;margin-top:6px}
+.tabs{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);text-align:right}
+.tabs .on{color:var(--ochre);font-weight:600;border-bottom:2px solid var(--ochre);padding-bottom:2px}
+.crumb{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin-bottom:2px}
+
+.lede{font-size:16px;line-height:1.5;max-width:70ch;color:var(--ink-2);margin-bottom:24px}
+.lede b{color:var(--ink);font-weight:600}
+
+/* section head */
+.sec{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-2);border-bottom:1px solid var(--ink);padding-bottom:6px;margin:30px 0 14px;display:flex;justify-content:space-between;align-items:baseline}
+.sec b{font-family:var(--serif);font-size:18px;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink)}
+
+/* stat cards */
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--ink);border:1px solid var(--ink)}
+.stat{background:var(--paper);padding:12px 14px}
+.stat .l{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+.stat .v{font-weight:600;font-size:24px;line-height:1;margin-top:6px;font-variant-numeric:tabular-nums}
+.stat .v small{font-size:11px;color:var(--ink-2);font-weight:400}
+.stat .s{font-family:var(--mono);font-size:9.5px;color:var(--ink-2);margin-top:4px}
+
+/* institution band */
+.inst{display:grid;grid-template-columns:1fr 1fr;gap:24px;font-size:13.5px;line-height:1.55;margin-top:6px}
+.inst .box{border:1px solid var(--ink);background:var(--paper);padding:13px 16px}
+.inst h3{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin-bottom:7px}
+.inst b{color:var(--teal)}
+
+/* tables */
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);text-align:left;padding:8px 12px;border-bottom:1px solid var(--ink);background:var(--paper-2)}
+tbody td{padding:7px 12px;border-bottom:1px dotted #b7ad94;vertical-align:middle}
+td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right}
+.blkrow td{background:rgba(31,78,95,.07);font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);font-weight:600;padding:6px 12px}
+.mono-cell{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
+
+/* status chip */
+.chip{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;font-weight:600;white-space:nowrap}
+/* three semantic tiers: run (green) · partial (amber) · read-only (muted) */
+.c-rep,.c-run{color:var(--forest)} .c-stand,.c-part{color:var(--ochre)}
+.c-pend,.c-priv,.c-ext{color:var(--ink-2)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:10px;color:var(--ink-2);margin-top:10px}
+/* summary readout */
+.readout{display:flex;gap:0;border:1px solid var(--ink);margin-bottom:14px;background:var(--ink)}
+.readout>div{flex:1;background:var(--paper);padding:11px 15px}
+.readout .n{font-weight:600;font-size:24px;line-height:1;font-variant-numeric:tabular-nums}
+.readout .n.run{color:var(--forest)} .readout .n.part{color:var(--ochre)}
+.readout .k{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-2);margin-top:5px}
+.readout .wide{flex:2.2;border-left:1px solid var(--ink)}
+.readout .wide .msg{font-size:14px;line-height:1.4}
+.readout .wide .msg b{color:var(--forest)}
+/* roadmap tabs */
+.tabs .soon{color:#a99f86}
+
+/* two-col lower */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:start}
+.bar{height:9px;background:var(--teal);display:inline-block;vertical-align:middle;border-radius:0}
+.foot{margin-top:40px;padding-top:14px;border-top:1px solid var(--ink);display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+.tablewrap{border:1px solid var(--ink)}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="eyebrow">Transportation+AI Lab · Arizona State University · A Learning Companion</div>
+    <h1>Regional Model <em>Observatory</em></h1>
+  </div>
+  <div class="tabs">
+    <div class="crumb">module 1 of 9 · rest on the roadmap</div>
+    <span class="on">1 · Model Inventory</span><br>
+    <span class="soon">2 Land-Use · 3 Population · 4 Generation · 5 Destination · 6 Accessibility · 7 Mode/Toll · 8 AM/PM · 9 Corridor</span>
+  </div>
+</header>
+
+<p class="lede"><b>This is a tool for learning</b> — a way to study how a real regional travel
+model actually works, in the open. The goal is understanding, not converting any
+agency to GMNS. The Triangle Regional Model (TRMG2) is a tour-informed, trip-based
+model of <b>four blocks and 21 modules</b>; this page inventories the region, the
+network, and the demand, and marks <b>how much of each module you can open and run
+yourself</b> versus only read about. Module list per Zhang et&nbsp;al. (2024),
+<em>Urban Transport of China</em> 22(4):41–49, Table 1.</p>
+
+<!-- INVENTORY STATS -->
+<div class="sec"><b>What do we have?</b><span>Triangle Region · base year 2020</span></div>
+<div class="stats">
+  <div class="stat"><div class="l">Zones (TAZ)</div><div class="v">3,247</div><div class="s">12 districts</div></div>
+  <div class="stat"><div class="l">Network nodes</div><div class="v">33,963</div><div class="s">centroids first</div></div>
+  <div class="stat"><div class="l">Directed links</div><div class="v">75,939</div><div class="s">GMNS</div></div>
+  <div class="stat"><div class="l">Households</div><div class="v">812,747</div><div class="s">synth 731,913</div></div>
+  <div class="stat"><div class="l">Persons</div><div class="v">2.03<small>M</small></div><div class="s">synth 1.78 M</div></div>
+  <div class="stat"><div class="l">Jobs</div><div class="v">1.06<small>M</small></div><div class="s">by sector</div></div>
+  <div class="stat"><div class="l">HB purposes</div><div class="v">8</div><div class="s">work · school · other</div></div>
+  <div class="stat"><div class="l">Time periods</div><div class="v">4</div><div class="s">AM · MD · PM · NT</div></div>
+  <div class="stat"><div class="l">Daily HB trips</div><div class="v">4.48<small>M</small></div><div class="s">person-trips</div></div>
+  <div class="stat"><div class="l">Assigned classes</div><div class="v">3</div><div class="s">SOV · HOV2 · HOV3</div></div>
+</div>
+<p style="font-size:12px;color:var(--ink-2);margin-top:8px">Household &amp; person counts show the socioeconomic control totals; the paper's
+enhanced-IPU synthesis produced <span class="num">731,913</span> households and
+<span class="num">1,783,548</span> persons in ~2&nbsp;min. Both are inventoried so
+the difference (synthesis vs. marginals) is visible, not hidden.</p>
+
+<!-- INSTITUTION -->
+<div class="sec"><b>Who builds and governs it?</b><span>model as an institution</span></div>
+<div class="inst">
+  <div class="box"><h3>Ownership &amp; funding</h3>
+    Built by <b>ITRE</b> (NC State) as the Triangle Regional Model Service Bureau,
+    funded by four agencies: <b>NCDOT</b>, the <b>Capital Area MPO</b>, the
+    <b>Durham–Chapel Hill–Carrboro MPO</b>, and <b>GoTriangle</b>. Software
+    development by Caliper (with WSP).</div>
+  <div class="box"><h3>Lineage</h3>
+    <b>2 generations, 7 versions.</b> Gen-1 ran six versions (V6 final, 2020);
+    Gen-2 launched 2020, V1 in 2021, <b>V2.0 in July 2024</b>. Released open-source
+    on GitHub — code, inputs, and parameters — which is what makes this transfer
+    possible.</div>
+</div>
+
+<!-- 21 MODULES TABLE -->
+<div class="sec"><b>The 21 modules — how much you can study each one</b><span>paper Table 1 · what's open to run</span></div>
+<div class="readout">
+  <div><div class="n run">5</div><div class="k">reproduced · run &amp; study fully</div></div>
+  <div><div class="n part">4</div><div class="k">stand-in / partial · run approximately</div></div>
+  <div><div class="n">12</div><div class="k">read-only · in the paper &amp; docs</div></div>
+  <div class="wide"><div class="msg">You can run the <b>full generation → destination → assignment loop</b> today, on the real Triangle network — enough to learn how a regional model behaves end to end.</div></div>
+</div>
+<div class="tablewrap">
+<table>
+  <thead><tr><th style="width:34px">#</th><th>Module</th><th style="width:150px">Open to study</th><th>Note</th></tr></thead>
+  <tbody>
+    <tr class="blkrow"><td colspan="4">A · Base data</td></tr>
+    <tr><td class="n">1</td><td>Zones &amp; socioeconomic data</td><td><span class="chip c-rep">✓ reproduced</span></td><td class="mono-cell">se_data/, scenario/</td></tr>
+    <tr><td class="n">2</td><td>Transportation network</td><td><span class="chip c-rep">✓ reproduced</span></td><td class="mono-cell">GMNS node+link, exact topology</td></tr>
+    <tr class="blkrow"><td colspan="4">B · Survey processing</td></tr>
+    <tr><td class="n">3</td><td>Household travel survey</td><td><span class="chip c-priv">— private</span></td><td class="mono-cell">raw microdata held by ITRE</td></tr>
+    <tr><td class="n">4</td><td>Bus on-board survey</td><td><span class="chip c-priv">— private</span></td><td class="mono-cell">agency-only</td></tr>
+    <tr class="blkrow"><td colspan="4">C · Resident model</td></tr>
+    <tr><td class="n">5</td><td>Population synthesis (enhanced IPU)</td><td><span class="chip c-pend">○ pending</span></td><td class="mono-cell">SE marginals present; synth output not released</td></tr>
+    <tr><td class="n">6</td><td>Auto ownership</td><td><span class="chip c-pend">○ pending</span></td><td class="mono-cell">needs synthetic households</td></tr>
+    <tr><td class="n">7</td><td>Trip generation (decision tree)</td><td><span class="chip c-stand">~ stand-in</span></td><td class="mono-cell">zone-level demographic base; totals match survey</td></tr>
+    <tr><td class="n">8</td><td>Time-of-day</td><td><span class="chip c-rep">✓ reproduced</span></td><td class="mono-cell">TOD factors, 4 periods</td></tr>
+    <tr><td class="n">9</td><td>Non-motorized split</td><td><span class="chip c-pend">○ pending</span></td><td class="mono-cell">needs walk accessibility</td></tr>
+    <tr><td class="n">10</td><td>Parking</td><td><span class="chip c-pend">○ pending</span></td><td class="mono-cell">needs parking cost/supply inputs</td></tr>
+    <tr><td class="n">11</td><td>Destination choice (nested, 12 districts)</td><td><span class="chip c-rep">✓ reproduced</span></td><td class="mono-cell">two-level nested logit, verified vs source</td></tr>
+    <tr><td class="n">12</td><td>Mode split (nested logit)</td><td><span class="chip c-stand">~ stand-in</span></td><td class="mono-cell">survey shares; nested logit + transit skims pending</td></tr>
+    <tr><td class="n">13</td><td>Non-home-based</td><td><span class="chip c-pend">○ pending</span></td><td class="mono-cell">HB→NHB Markov sequencing</td></tr>
+    <tr class="blkrow"><td colspan="4">D · Special markets &amp; support</td></tr>
+    <tr><td class="n">14</td><td>Accessibility (6 indicators)</td><td><span class="chip c-part">◐ partial</span></td><td class="mono-cell">walk/transit/hospital present; 6-indicator set pending</td></tr>
+    <tr><td class="n">15</td><td>University (4 campuses)</td><td><span class="chip c-pend">○ pending</span></td><td class="mono-cell">NC State · UNC · Duke · NCCU</td></tr>
+    <tr><td class="n">16</td><td>Airport (RDU)</td><td><span class="chip c-pend">○ pending</span></td><td class="mono-cell">enplanement-driven</td></tr>
+    <tr><td class="n">17</td><td>Internal / external / through</td><td><span class="chip c-pend">○ pending</span></td><td class="mono-cell">IEEI external stations</td></tr>
+    <tr><td class="n">18</td><td>Commercial vehicle / truck</td><td><span class="chip c-pend">○ pending</span></td><td class="mono-cell">freight market</td></tr>
+    <tr><td class="n">19</td><td>Traffic assignment</td><td><span class="chip c-rep">✓ reproduced</span></td><td class="mono-cell">TAPLite, R²=1.0 vs kernel; corridor/CBI → <a href="https://github.com/asu-trans-ai-lab" target="_blank" rel="noopener">external ↗</a></td></tr>
+    <tr><td class="n">20</td><td>Model validation</td><td><span class="chip c-rep">✓ reproduced</span></td><td class="mono-cell">count-comparison gates vs benchmarks</td></tr>
+    <tr><td class="n">21</td><td>Sensitivity testing</td><td><span class="chip c-part">◐ partial</span></td><td class="mono-cell">demand-scaling break-point experiment</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="legend">
+  <span><span class="chip c-rep">✓ reproduced</span> run &amp; study it fully</span>
+  <span><span class="chip c-stand">~ stand-in</span> run it, approximate</span>
+  <span><span class="chip c-part">◐ partial</span> study part of it</span>
+  <span><span class="chip c-pend">○ pending</span> read about it (not built yet)</span>
+  <span><span class="chip c-priv">— private</span> read about it (agency data)</span>
+  <span><span class="chip c-ext" style="color:#6b4a9c">↗ external</span> separate open tool</span>
+</div>
+
+<!-- CPU + READING TIME -->
+<div class="duo">
+  <div>
+    <div class="sec"><b>Compute cost per step</b><span>full run ≈ 10 min · Ryzen, 8 threads</span></div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Stage</th><th class="n">CPU time</th><th style="width:44%">relative</th></tr></thead>
+      <tbody>
+        <tr><td>Network skimming</td><td class="n">33 s</td><td><span class="bar" style="width:6%"></span></td></tr>
+        <tr><td><b>1 ·</b> Trip generation</td><td class="n">~3 s</td><td><span class="bar" style="width:1%"></span></td></tr>
+        <tr><td><b>2 ·</b> Destination choice</td><td class="n">31 s</td><td><span class="bar" style="width:6%"></span></td></tr>
+        <tr><td><b>3 ·</b> Mode &amp; time-of-day</td><td class="n">~3 s</td><td><span class="bar" style="width:1%"></span></td></tr>
+        <tr><td><b>4 ·</b> Assignment (4 periods)</td><td class="n">540 s</td><td><span class="bar" style="width:100%"></span></td></tr>
+        <tr><td style="color:var(--ink-2)">Tensor extraction (Δ,A,Π)</td><td class="n">82 s</td><td><span class="bar" style="width:15%;background:var(--ochre)"></span></td></tr>
+        <tr><td style="color:var(--forest)"><b>Reload &amp; reproduce</b> (1 matmul)</td><td class="n">&lt;1 s</td><td><span class="bar" style="width:1%;background:var(--forest)"></span></td></tr>
+      </tbody>
+    </table></div>
+    <p style="font-size:12px;color:var(--ink-2);margin-top:8px">The four demand steps cost ~70&nbsp;s together; assignment dominates. Once the
+    operators are extracted, the whole system <b>reloads in one matrix multiply</b> —
+    the payoff of the tensor form.</p>
+  </div>
+  <div>
+    <div class="sec"><b>Reading time to learn it</b><span>~220 wpm</span></div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Document</th><th class="n">words</th><th class="n">read</th></tr></thead>
+      <tbody>
+        <tr><td><a href="README.md">README</a> (start here)</td><td class="n">1,120</td><td class="n">6 min</td></tr>
+        <tr><td><a href="doc/STUDENT_GUIDE.md">STUDENT_GUIDE</a></td><td class="n">1,249</td><td class="n">6 min</td></tr>
+        <tr><td><a href="doc/REPORT.md">REPORT</a> (full status)</td><td class="n">1,911</td><td class="n">9 min</td></tr>
+        <tr><td><a href="doc/FIDELITY_STATUS.md">FIDELITY_STATUS</a></td><td class="n">564</td><td class="n">3 min</td></tr>
+        <tr><td><a href="doc/SKIM_AND_ASSIGNMENT.md">SKIM_AND_ASSIGNMENT</a></td><td class="n">500</td><td class="n">3 min</td></tr>
+        <tr><td><a href="doc/GMNS_README.md">GMNS_README</a></td><td class="n">432</td><td class="n">2 min</td></tr>
+        <tr class="blkrow"><td colspan="3">background</td></tr>
+        <tr><td>TRMG2 paper (中文, 10 pp.)</td><td class="n">~4,500</td><td class="n">~30 min</td></tr>
+      </tbody>
+    </table></div>
+    <p style="font-size:12px;color:var(--ink-2);margin-top:8px"><b>~29 min</b> to read the repo docs; <b>~1 hour</b> including the source paper.
+    A student can be oriented before lunch.</p>
+  </div>
+</div>
+
+<div class="foot">
+  <div>regional model observatory · tab 1 · model inventory · standalone module</div>
+  <div>trmg2 gmns transfer · transportation+ai lab · asu</div>
+</div>
+</body>
+</html>

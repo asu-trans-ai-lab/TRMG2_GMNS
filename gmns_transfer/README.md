@@ -26,6 +26,17 @@ reproduces.
 
 ![TRMG2 architecture — synthetic population, person trip production, mode & destination, special markets, and equilibrium feedback](doc/figures/trmg2_architecture.png)
 
+### Explore it (learning pages)
+
+Interactive, self-contained HTML — open locally, or enable GitHub Pages to view in
+the browser. Each is a focused module, not an everything-page:
+
+- **[observatory.html](observatory.html)** — *Model Inventory*: what the model is,
+  who governs it, the 21 modules with how-much-you-can-run status, per-step compute
+  cost, and doc reading times. (Module 1 of a 9-tab observatory roadmap.)
+- **[dashboard.html](dashboard.html)** — the four-step model + tensor flow-through
+  at a glance.
+
 ### Built on GMNS
 
 The network here is expressed in **GMNS — the General Modeling Network
