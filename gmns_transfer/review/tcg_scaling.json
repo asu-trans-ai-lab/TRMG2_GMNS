@@ -1,0 +1,92 @@
+[
+ {
+  "name": "sioux_falls",
+  "zones": 24,
+  "links": 76,
+  "od_pairs": 528,
+  "paths": 1400,
+  "pi_nnz": 4320,
+  "pi_r2": 1.0,
+  "C": 3,
+  "n_params": 14,
+  "t_kernel": 0.4,
+  "t_extract": 0.0,
+  "t_forward": 0.001,
+  "t_loss_grad": 0.0,
+  "prmse_before": 24.16,
+  "no_rails": {
+   "prmse": 10.89,
+   "iters": 97,
+   "secs": 0.1,
+   "drift_max": 5.0,
+   "drift_mean": 2.058
+  },
+  "rails_lam0p5": {
+   "prmse": 13.13,
+   "iters": 23,
+   "secs": 0.0,
+   "drift_max": 0.397,
+   "drift_mean": 0.142
+  }
+ },
+ {
+  "name": "chicago_sketch",
+  "zones": 386,
+  "links": 2950,
+  "od_pairs": 93135,
+  "paths": 255881,
+  "pi_nnz": 2005476,
+  "pi_r2": 1.0,
+  "C": 6,
+  "n_params": 26,
+  "t_kernel": 17.3,
+  "t_extract": 3.3,
+  "t_forward": 0.022,
+  "t_loss_grad": 0.036,
+  "prmse_before": 44.15,
+  "no_rails": {
+   "prmse": 41.65,
+   "iters": 372,
+   "secs": 13.5,
+   "drift_max": 5.0,
+   "drift_mean": 0.967
+  },
+  "rails_lam0p5": {
+   "prmse": 41.98,
+   "iters": 155,
+   "secs": 5.8,
+   "drift_max": 1.5,
+   "drift_mean": 0.479
+  }
+ },
+ {
+  "name": "chicago_regional",
+  "zones": 1769,
+  "links": 39018,
+  "od_pairs": 1881643,
+  "paths": 17493269,
+  "pi_nnz": 256043839,
+  "pi_r2": 0.99967,
+  "C": 10,
+  "n_params": 42,
+  "t_kernel": 1030.0,
+  "t_extract": 803.0,
+  "t_forward": 1.08,
+  "t_loss_grad": 2.187,
+  "prmse_before": 50.11,
+  "no_rails": {
+   "prmse": 34.65,
+   "iters": 400,
+   "secs": 885.9,
+   "drift_max": 5.0,
+   "drift_mean": 1.48
+  },
+  "rails_lam0p5": {
+   "prmse": 34.57,
+   "iters": 317,
+   "secs": 516.5,
+   "drift_max": 1.5,
+   "drift_mean": 0.662
+  }
+ }
+]

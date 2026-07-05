@@ -1,0 +1,68 @@
+{
+ "dc": "TRMG2 tables (v1.5, no invented parameters)",
+ "purposes": {
+  "W_HB_W_All": {
+   "daily_person_trips": 637956,
+   "avg_am_time_min": 17.1
+  },
+  "W_HB_O_All": {
+   "daily_person_trips": 332436,
+   "avg_am_time_min": 11.5
+  },
+  "W_HB_EK12_All": {
+   "daily_person_trips": 72087,
+   "avg_am_time_min": 8.6
+  },
+  "N_HB_OME_All": {
+   "daily_person_trips": 1127444,
+   "avg_am_time_min": 11.6
+  },
+  "N_HB_OMED_All": {
+   "daily_person_trips": 120695,
+   "avg_am_time_min": 15.7
+  },
+  "N_HB_OD_Short": {
+   "daily_person_trips": 610862,
+   "avg_am_time_min": 12.9
+  },
+  "N_HB_OD_Long": {
+   "daily_person_trips": 966708,
+   "avg_am_time_min": 12.7
+  },
+  "N_HB_K12_All": {
+   "daily_person_trips": 622069,
+   "avg_am_time_min": 8.3
+  }
+ },
+ "periods": {
+  "AM": {
+   "veh": 466633,
+   "vmt": 9252458,
+   "secs": 176,
+   "final_gap": "0.001081 %"
+  },
+  "MD": {
+   "veh": 870780,
+   "vmt": 17102576,
+   "secs": 159,
+   "final_gap": "0.000112 %"
+  },
+  "PM": {
+   "veh": 708818,
+   "vmt": 14033625,
+   "secs": 143,
+   "final_gap": "0.000597 %"
+  },
+  "NT": {
+   "veh": 743439,
+   "vmt": 14439125,
+   "secs": 125,
+   "final_gap": "0.000174 %"
+  }
+ },
+ "counted_links": 4659,
+ "total_count": 58373693,
+ "total_assigned": 17949279,
+ "captured_share": 0.307,
+ "total_wall_secs": 841
+}

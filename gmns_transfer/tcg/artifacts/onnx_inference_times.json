@@ -1,0 +1,62 @@
+[
+ {
+  "network": "chicago_regional",
+  "P": 2,
+  "C": 10,
+  "OD_shape": [
+   1769,
+   1769
+  ],
+  "OD_total": 4641659,
+  "infer_ms": 7.28,
+  "providers": [
+   "AzureExecutionProvider",
+   "CPUExecutionProvider"
+  ]
+ },
+ {
+  "network": "chicago_sketch",
+  "P": 2,
+  "C": 6,
+  "OD_shape": [
+   386,
+   386
+  ],
+  "OD_total": 903781,
+  "infer_ms": 2.05,
+  "providers": [
+   "AzureExecutionProvider",
+   "CPUExecutionProvider"
+  ]
+ },
+ {
+  "network": "sioux_falls",
+  "P": 2,
+  "C": 3,
+  "OD_shape": [
+   24,
+   24
+  ],
+  "OD_total": 53279,
+  "infer_ms": 0.04,
+  "providers": [
+   "AzureExecutionProvider",
+   "CPUExecutionProvider"
+  ]
+ },
+ {
+  "network": "trmg2",
+  "P": 8,
+  "C": 12,
+  "OD_shape": [
+   3147,
+   3147
+  ],
+  "OD_total": 33771348,
+  "infer_ms": 384.61,
+  "providers": [
+   "AzureExecutionProvider",
+   "CPUExecutionProvider"
+  ]
+ }
+]

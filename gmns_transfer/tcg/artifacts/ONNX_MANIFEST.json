@@ -1,0 +1,70 @@
+[
+ {
+  "network": "sioux_falls",
+  "Z": 24,
+  "C": 3,
+  "P": 2,
+  "onnx_file": "sioux_falls_demand.onnx",
+  "onnx_KB": 41.8,
+  "compute_nodes": 44,
+  "inputs": [
+   "g",
+   "dASC",
+   "dIC"
+  ],
+  "output": "OD [24,24]",
+  "ort_vs_torch_maxdiff": 0.000122,
+  "status": "PASS"
+ },
+ {
+  "network": "chicago_sketch",
+  "Z": 386,
+  "C": 6,
+  "P": 2,
+  "onnx_file": "chicago_sketch_demand.onnx",
+  "onnx_KB": 3730.9,
+  "compute_nodes": 66,
+  "inputs": [
+   "g",
+   "dASC",
+   "dIC"
+  ],
+  "output": "OD [386,386]",
+  "ort_vs_torch_maxdiff": 0.000153,
+  "status": "PASS"
+ },
+ {
+  "network": "chicago_regional",
+  "Z": 1769,
+  "C": 10,
+  "P": 2,
+  "onnx_file": "chicago_regional_demand.onnx",
+  "onnx_KB": 12831.0,
+  "compute_nodes": 70,
+  "inputs": [
+   "g",
+   "dASC",
+   "dIC"
+  ],
+  "output": "OD [1769,1769]",
+  "ort_vs_torch_maxdiff": 9.16e-05,
+  "status": "PASS"
+ },
+ {
+  "network": "trmg2",
+  "Z": 3147,
+  "C": 12,
+  "P": 8,
+  "onnx_file": "trmg2_demand.onnx",
+  "onnx_KB": 40857.6,
+  "compute_nodes": 274,
+  "inputs": [
+   "g",
+   "dASC",
+   "dIC"
+  ],
+  "output": "OD [3147,3147]",
+  "ort_vs_torch_maxdiff": 0.000137,
+  "status": "PASS"
+ }
+]

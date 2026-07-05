@@ -1,0 +1,27 @@
+{
+ "approximations": [
+  "A1 buffer-smoothing via centroid-in-buffer",
+  "A2 link area type via BFS from centroids",
+  "A4 ramps fall back to MajorArterial rows"
+ ],
+ "export_links": 135928,
+ "export_nodes_with_coords": 108663,
+ "zone_at_counts": {
+  "Rural": 990,
+  "Suburban": 1201,
+  "Urban": 710,
+  "Downtown": 346
+ },
+ "zones_without_polygon": 282,
+ "directed_links": 75939,
+ "skipped_no_lookup": 0,
+ "links_missing_from_export": 0,
+ "retired_A3_length_check": {
+  "n": 33554,
+  "corr": 0.9969,
+  "mean_abs_rel_err": 0.0694
+ },
+ "nodes_missing_coords": 0,
+ "nodes": 33963,
+ "zones_in_network": 3247
+}

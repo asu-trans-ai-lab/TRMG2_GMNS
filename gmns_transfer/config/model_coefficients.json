@@ -1,0 +1,814 @@
+{
+  "_meta": {
+    "source": "TRMG2 master/resident coefficient tables",
+    "purposes": [
+      "W_HB_W_All",
+      "W_HB_O_All",
+      "W_HB_EK12_All",
+      "N_HB_OME_All",
+      "N_HB_OMED_All",
+      "N_HB_OD_Short",
+      "N_HB_OD_Long",
+      "N_HB_K12_All"
+    ],
+    "note": "coefficients are TRMG2's own; do not invent. See doc/tensor_4step_math.tex."
+  },
+  "purposes": {
+    "W_HB_W_All": {
+      "eda_key": [
+        "W",
+        "W",
+        "All"
+      ],
+      "size_cols": [
+        "w_hbw_size_H",
+        "w_hbw_size_L"
+      ],
+      "dc_utility": {
+        "beta_size": 0.676,
+        "beta_time": -0.0965,
+        "beta_iz": 1.415,
+        "beta_shadow": 1.0,
+        "cutoff_min": 60.0,
+        "piecewise": [],
+        "deferred_terms": [
+          "nz(mc_logsums.TransitComposite) (0.0601)",
+          "se.access_hospital_sov.D (0.195)",
+          "se.access_transit.D (0.0322)",
+          "se.access_walk.D (0.353)"
+        ]
+      },
+      "clusters": {
+        "1": {
+          "theta": 0.997,
+          "asc": 0.0,
+          "ic": 0.8810000000000001
+        },
+        "2": {
+          "theta": 0.835,
+          "asc": 0.0,
+          "ic": 0.113
+        },
+        "3": {
+          "theta": 0.716,
+          "asc": 0.647,
+          "ic": 0.8720000000000001
+        },
+        "4": {
+          "theta": 0.722,
+          "asc": 0.0,
+          "ic": 0.694
+        },
+        "5": {
+          "theta": 0.956,
+          "asc": -0.71,
+          "ic": 0.214
+        },
+        "6": {
+          "theta": 0.835,
+          "asc": 0.0,
+          "ic": 0.8049999999999999
+        },
+        "7": {
+          "theta": 0.62,
+          "asc": 1.03,
+          "ic": 0.525
+        },
+        "81": {
+          "theta": 0.66,
+          "asc": 0.874,
+          "ic": 1.0750000000000002
+        },
+        "82": {
+          "theta": 0.732,
+          "asc": 0.0,
+          "ic": 1.201
+        },
+        "83": {
+          "theta": 0.739,
+          "asc": 0.0,
+          "ic": -0.203
+        },
+        "84": {
+          "theta": 0.686,
+          "asc": 0.0,
+          "ic": 1.405
+        },
+        "85": {
+          "theta": 0.74,
+          "asc": 0.0,
+          "ic": 1.715
+        }
+      }
+    },
+    "W_HB_O_All": {
+      "eda_key": [
+        "W",
+        "O",
+        "All"
+      ],
+      "size_cols": [
+        "w_hbo_size"
+      ],
+      "dc_utility": {
+        "beta_size": 0.612,
+        "beta_time": -0.193,
+        "beta_iz": 1.097,
+        "beta_shadow": 0.0,
+        "cutoff_min": 50.0,
+        "piecewise": [
+          {
+            "threshold": 30.0,
+            "coef": 0.131
+          }
+        ],
+        "deferred_terms": [
+          "nz(mc_logsums.TransitComposite) (0.0705)",
+          "nz(mc_logsums.NonHHAutoComposite) (0.459)"
+        ]
+      },
+      "clusters": {
+        "1": {
+          "theta": 1.0,
+          "asc": -0.985,
+          "ic": 0.0
+        },
+        "2": {
+          "theta": 0.78,
+          "asc": 0.434,
+          "ic": 0.0
+        },
+        "3": {
+          "theta": 0.797,
+          "asc": 0.0,
+          "ic": 0.622
+        },
+        "4": {
+          "theta": 0.777,
+          "asc": -0.098,
+          "ic": 0.534
+        },
+        "5": {
+          "theta": 0.82,
+          "asc": 0.136,
+          "ic": 0.0
+        },
+        "6": {
+          "theta": 0.884,
+          "asc": -0.149,
+          "ic": 0.0
+        },
+        "7": {
+          "theta": 0.823,
+          "asc": 0.216,
+          "ic": 0.391
+        },
+        "81": {
+          "theta": 1.0,
+          "asc": -1.665,
+          "ic": 0.0
+        },
+        "82": {
+          "theta": 0.804,
+          "asc": 0.127,
+          "ic": 0.0
+        },
+        "83": {
+          "theta": 0.751,
+          "asc": -0.132,
+          "ic": 0.0
+        },
+        "84": {
+          "theta": 0.719,
+          "asc": 0.0,
+          "ic": 0.0
+        },
+        "85": {
+          "theta": 0.783,
+          "asc": 0.22100000000000003,
+          "ic": 0.0
+        }
+      }
+    },
+    "W_HB_EK12_All": {
+      "eda_key": [
+        "W",
+        "EK12",
+        "All"
+      ],
+      "size_cols": [
+        "w_hbek12_size"
+      ],
+      "dc_utility": {
+        "beta_size": 0.237,
+        "beta_time": -0.272,
+        "beta_iz": -0.825,
+        "beta_shadow": 0.0,
+        "cutoff_min": 30.0,
+        "piecewise": [
+          {
+            "threshold": 30.0,
+            "coef": 0.187
+          }
+        ],
+        "deferred_terms": []
+      },
+      "clusters": {
+        "1": {
+          "theta": 1.0,
+          "asc": 0.266,
+          "ic": 0.0
+        },
+        "2": {
+          "theta": 0.846,
+          "asc": 0.98,
+          "ic": 0.0
+        },
+        "3": {
+          "theta": 0.845,
+          "asc": 0.111,
+          "ic": 0.0
+        },
+        "4": {
+          "theta": 1.0,
+          "asc": -0.45,
+          "ic": 0.266
+        },
+        "5": {
+          "theta": 1.0,
+          "asc": -0.35200000000000004,
+          "ic": 0.0
+        },
+        "6": {
+          "theta": 1.0,
+          "asc": 0.0,
+          "ic": 0.0
+        },
+        "7": {
+          "theta": 0.828,
+          "asc": 0.729,
+          "ic": 0.0
+        },
+        "81": {
+          "theta": 1.0,
+          "asc": -0.731,
+          "ic": 0.0
+        },
+        "82": {
+          "theta": 1.0,
+          "asc": -0.239,
+          "ic": 0.0
+        },
+        "83": {
+          "theta": 1.0,
+          "asc": -0.6,
+          "ic": 0.0
+        },
+        "84": {
+          "theta": 1.0,
+          "asc": -1.562,
+          "ic": -0.347
+        },
+        "85": {
+          "theta": 1.0,
+          "asc": -0.783,
+          "ic": 0.0
+        }
+      }
+    },
+    "N_HB_OME_All": {
+      "eda_key": [
+        "N",
+        "OME",
+        "All"
+      ],
+      "size_cols": [
+        "n_hbome_size"
+      ],
+      "dc_utility": {
+        "beta_size": 0.881,
+        "beta_time": -0.208,
+        "beta_iz": 0.225,
+        "beta_shadow": 0.0,
+        "cutoff_min": 55.0,
+        "piecewise": [
+          {
+            "threshold": 30.0,
+            "coef": 0.136
+          }
+        ],
+        "deferred_terms": [
+          "nz(mc_logsums.NonHHAutoComposite) (0.416)"
+        ]
+      },
+      "clusters": {
+        "1": {
+          "theta": 0.84,
+          "asc": -0.359,
+          "ic": 0.0
+        },
+        "2": {
+          "theta": 0.94,
+          "asc": 0.0,
+          "ic": 0.0
+        },
+        "3": {
+          "theta": 0.914,
+          "asc": 0.287,
+          "ic": 0.467
+        },
+        "4": {
+          "theta": 0.86,
+          "asc": 0.101,
+          "ic": 0.578
+        },
+        "5": {
+          "theta": 0.912,
+          "asc": 0.0,
+          "ic": 0.0
+        },
+        "6": {
+          "theta": 0.811,
+          "asc": 0.45999999999999996,
+          "ic": 0.0
+        },
+        "7": {
+          "theta": 0.935,
+          "asc": 0.0,
+          "ic": 0.0
+        },
+        "81": {
+          "theta": 0.993,
+          "asc": -1.657,
+          "ic": 0.0
+        },
+        "82": {
+          "theta": 0.961,
+          "asc": 0.0,
+          "ic": 0.0
+        },
+        "83": {
+          "theta": 1.0,
+          "asc": -0.795,
+          "ic": 0.0
+        },
+        "84": {
+          "theta": 0.972,
+          "asc": -0.813,
+          "ic": 0.406
+        },
+        "85": {
+          "theta": 0.976,
+          "asc": -0.09699999999999998,
+          "ic": 0.0
+        }
+      }
+    },
+    "N_HB_OMED_All": {
+      "eda_key": [
+        "N",
+        "OMED",
+        "All"
+      ],
+      "size_cols": [
+        "n_hbomed_size"
+      ],
+      "dc_utility": {
+        "beta_size": 0.803,
+        "beta_time": -0.141,
+        "beta_iz": 0.0,
+        "beta_shadow": 0.0,
+        "cutoff_min": 55.0,
+        "piecewise": [
+          {
+            "threshold": 30.0,
+            "coef": 0.103
+          }
+        ],
+        "deferred_terms": [
+          "nz(mc_logsums.NonHHAutoComposite) (0.508)",
+          "se.access_hospital_sov.D (0.524)",
+          "se.access_hospital_sov.D (-0.25)"
+        ]
+      },
+      "clusters": {
+        "1": {
+          "theta": 1.0,
+          "asc": -1.4389999999999998,
+          "ic": 0.0
+        },
+        "2": {
+          "theta": 0.84,
+          "asc": -0.208,
+          "ic": 0.0
+        },
+        "3": {
+          "theta": 0.889,
+          "asc": 0.113,
+          "ic": 0.0
+        },
+        "4": {
+          "theta": 0.529,
+          "asc": -0.522,
+          "ic": 2.28
+        },
+        "5": {
+          "theta": 0.843,
+          "asc": -0.219,
+          "ic": 0.0
+        },
+        "6": {
+          "theta": 1.0,
+          "asc": 0.117,
+          "ic": 0.0
+        },
+        "7": {
+          "theta": 0.829,
+          "asc": -0.392,
+          "ic": 0.817
+        },
+        "81": {
+          "theta": 0.96,
+          "asc": -1.277,
+          "ic": 0.0
+        },
+        "82": {
+          "theta": 0.635,
+          "asc": 0.653,
+          "ic": 1.55
+        },
+        "83": {
+          "theta": 0.734,
+          "asc": 0.275,
+          "ic": 0.0
+        },
+        "84": {
+          "theta": 0.638,
+          "asc": 0.425,
+          "ic": 0.0
+        },
+        "85": {
+          "theta": 0.946,
+          "asc": 0.294,
+          "ic": 0.168
+        }
+      }
+    },
+    "N_HB_OD_Short": {
+      "eda_key": [
+        "N",
+        "OD",
+        "Short"
+      ],
+      "size_cols": [
+        "n_hbods_size"
+      ],
+      "dc_utility": {
+        "beta_size": 0.586,
+        "beta_time": -0.169,
+        "beta_iz": 1.015,
+        "beta_shadow": 0.0,
+        "cutoff_min": 55.0,
+        "piecewise": [
+          {
+            "threshold": 20.0,
+            "coef": 0.0525
+          }
+        ],
+        "deferred_terms": [
+          "nz(mc_logsums.auto) (0.0438)",
+          "nz(mc_logsums.nonhh_auto) (0.392)",
+          "nz(mc_logsums.transit) (0.202)"
+        ]
+      },
+      "clusters": {
+        "1": {
+          "theta": 0.982,
+          "asc": -1.02,
+          "ic": 0.0
+        },
+        "2": {
+          "theta": 0.756,
+          "asc": 0.46,
+          "ic": 0.499
+        },
+        "3": {
+          "theta": 0.738,
+          "asc": 0.525,
+          "ic": 0.32
+        },
+        "4": {
+          "theta": 0.701,
+          "asc": 0.0,
+          "ic": 0.0
+        },
+        "5": {
+          "theta": 0.949,
+          "asc": -0.813,
+          "ic": 0.351
+        },
+        "6": {
+          "theta": 1.0,
+          "asc": 0.17,
+          "ic": 0.0
+        },
+        "7": {
+          "theta": 0.76,
+          "asc": -0.10299999999999998,
+          "ic": 0.564
+        },
+        "81": {
+          "theta": 0.803,
+          "asc": -1.964,
+          "ic": 0.319
+        },
+        "82": {
+          "theta": 0.865,
+          "asc": -0.697,
+          "ic": 0.836
+        },
+        "83": {
+          "theta": 0.853,
+          "asc": -0.804,
+          "ic": 0.976
+        },
+        "84": {
+          "theta": 0.873,
+          "asc": -1.121,
+          "ic": 0.593
+        },
+        "85": {
+          "theta": 0.949,
+          "asc": 0.137,
+          "ic": 0.652
+        }
+      }
+    },
+    "N_HB_OD_Long": {
+      "eda_key": [
+        "N",
+        "OD",
+        "Long"
+      ],
+      "size_cols": [
+        "n_hbodl_size"
+      ],
+      "dc_utility": {
+        "beta_size": 0.592,
+        "beta_time": -0.171,
+        "beta_iz": 0.9410000000000001,
+        "beta_shadow": 0.0,
+        "cutoff_min": 55.0,
+        "piecewise": [
+          {
+            "threshold": 30.0,
+            "coef": 0.108
+          }
+        ],
+        "deferred_terms": [
+          "nz(mc_logsums.NonHHAutoComposite) (0.285)",
+          "nz(mc_logsums.TransitComposite) (1.1)",
+          "se.access_walk.D (0.246)"
+        ]
+      },
+      "clusters": {
+        "1": {
+          "theta": 1.0,
+          "asc": -1.3110000000000002,
+          "ic": 0.0
+        },
+        "2": {
+          "theta": 0.909,
+          "asc": 0.0,
+          "ic": 0.0
+        },
+        "3": {
+          "theta": 0.832,
+          "asc": 0.21,
+          "ic": 0.864
+        },
+        "4": {
+          "theta": 0.828,
+          "asc": 0.0,
+          "ic": 0.41400000000000003
+        },
+        "5": {
+          "theta": 0.918,
+          "asc": 0.0,
+          "ic": 0.285
+        },
+        "6": {
+          "theta": 0.933,
+          "asc": 0.131,
+          "ic": 0.628
+        },
+        "7": {
+          "theta": 0.852,
+          "asc": 0.0,
+          "ic": 0.519
+        },
+        "81": {
+          "theta": 0.994,
+          "asc": -0.504,
+          "ic": 0.0
+        },
+        "82": {
+          "theta": 0.879,
+          "asc": 0.0,
+          "ic": 0.32
+        },
+        "83": {
+          "theta": 0.984,
+          "asc": -1.745,
+          "ic": 0.667
+        },
+        "84": {
+          "theta": 0.909,
+          "asc": 0.257,
+          "ic": 0.0
+        },
+        "85": {
+          "theta": 0.803,
+          "asc": 1.105,
+          "ic": 0.0
+        }
+      }
+    },
+    "N_HB_K12_All": {
+      "eda_key": [
+        "N",
+        "K12",
+        "All"
+      ],
+      "size_cols": [
+        "n_hbk12_size"
+      ],
+      "dc_utility": {
+        "beta_size": 0.614,
+        "beta_time": -0.262,
+        "beta_iz": 0.1,
+        "beta_shadow": 0.0,
+        "cutoff_min": 35.0,
+        "piecewise": [
+          {
+            "threshold": 30.0,
+            "coef": 0.2
+          }
+        ],
+        "deferred_terms": []
+      },
+      "clusters": {
+        "1": {
+          "theta": 1.0,
+          "asc": 0.413,
+          "ic": 0.31
+        },
+        "2": {
+          "theta": 0.854,
+          "asc": 0.434,
+          "ic": 0.31
+        },
+        "3": {
+          "theta": 0.816,
+          "asc": 0.294,
+          "ic": 0.31
+        },
+        "4": {
+          "theta": 0.88,
+          "asc": -0.37,
+          "ic": 0.31
+        },
+        "5": {
+          "theta": 1.0,
+          "asc": -1.924,
+          "ic": 0.31
+        },
+        "6": {
+          "theta": 0.892,
+          "asc": 0.324,
+          "ic": 0.31
+        },
+        "7": {
+          "theta": 0.806,
+          "asc": 0.117,
+          "ic": 0.429
+        },
+        "81": {
+          "theta": 0.768,
+          "asc": -1.154,
+          "ic": 0.31
+        },
+        "82": {
+          "theta": 1.0,
+          "asc": -0.937,
+          "ic": 0.31
+        },
+        "83": {
+          "theta": 0.834,
+          "asc": -0.269,
+          "ic": 0.31
+        },
+        "84": {
+          "theta": 0.889,
+          "asc": 0.328,
+          "ic": 0.31
+        },
+        "85": {
+          "theta": 1.0,
+          "asc": 0.375,
+          "ic": 0.31
+        }
+      }
+    }
+  },
+  "time_of_day": {
+    "N_HB_K12_All": {
+      "tod": "PM",
+      "factor": "0.215"
+    },
+    "N_HB_OD_Long": {
+      "tod": "PM",
+      "factor": "0.248"
+    },
+    "N_HB_OD_Short": {
+      "tod": "PM",
+      "factor": "0.276"
+    },
+    "N_HB_OMED_All": {
+      "tod": "PM",
+      "factor": "0.173"
+    },
+    "N_HB_OME_All": {
+      "tod": "PM",
+      "factor": "0.229"
+    },
+    "W_HB_EK12_All": {
+      "tod": "PM",
+      "factor": "0.264"
+    },
+    "W_HB_O_All": {
+      "tod": "PM",
+      "factor": "0.301"
+    },
+    "W_HB_W_All": {
+      "tod": "PM",
+      "factor": "0.283"
+    }
+  },
+  "size_term_fields": {
+    "w_hbw_size_H": {
+      "Service_RateLow_EH": 0.298197,
+      "Service_RateHigh_EH": 0.298197,
+      "Office_EH": 1.0,
+      "Industry_EH": 0.301194,
+      "Retail_EH": 0.301194
+    },
+    "w_hbw_size_L": {
+      "Service_RateLow_EL": 0.353455,
+      "Service_RateHigh_EL": 0.353455,
+      "Office_EL": 1.0,
+      "Industry_EL": 0.301194,
+      "Retail_EL": 0.103312
+    },
+    "w_hbo_size": {
+      "Service_RateLow": 1.0,
+      "Service_RateHigh": 4.0552,
+      "Office": 1.108491,
+      "Retail": 11.822447,
+      "HH": 0.089815
+    },
+    "w_hbek12_size": {
+      "K12": 1.0
+    },
+    "n_hbome_size": {
+      "Service_RateLow": 0.029013,
+      "Service_RateHigh": 0.110803,
+      "Retail": 1.0
+    },
+    "n_hbomed_size": {
+      "Service_RateLow": 1.0,
+      "Service_RateHigh": 1.0,
+      "Retail": 0.225373
+    },
+    "n_hbods_size": {
+      "Service_RateLow": 4.758821,
+      "Service_RateHigh": 31.186958,
+      "Office": 2.013753,
+      "Retail": 10.697392,
+      "HH_POP": 1.0,
+      "K12": 4.392946
+    },
+    "n_hbodl_size": {
+      "Service_RateLow": 8.671138,
+      "Service_RateHigh": 117.919242,
+      "Office": 9.77668,
+      "Industry": 2.677812,
+      "Retail": 6.423737,
+      "HH_POP": 1.0,
+      "K12": 5.473947
+    },
+    "n_hbk12_size": {
+      "K12": 1.0
+    }
+  }
+}

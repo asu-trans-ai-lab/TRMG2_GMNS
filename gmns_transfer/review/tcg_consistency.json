@@ -1,0 +1,14 @@
+{
+ "world": "sioux_falls",
+ "Z": 24,
+ "C": 3,
+ "P": 2,
+ "pi_valid_err": 0.0149,
+ "OD_numpy_vs_torch_relmax": 2.65e-07,
+ "OD_torch_vs_onnx_relmax": 1.07e-07,
+ "v_numpy_vs_torch_relmax": 1.15e-07,
+ "v_torch_vs_onnx_relmax": 5.18e-08,
+ "grad_numpy_vs_torch_relmax": 8.17e-05,
+ "note": "numpy f64 vs torch/onnx f32 -> ~1e-3 is exact agreement; onnx vs torch ~1e-4 (both f32).",
+ "VERDICT": "PASS"
+}

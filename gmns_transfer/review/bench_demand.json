@@ -1,0 +1,18 @@
+{
+ "S1_load_inputs": 0.052,
+ "S2_skims": 41.643,
+ "S3_generation": 0.003,
+ "S4_size_terms": 0.033,
+ "S5_one_gravity_f64": 0.358,
+ "S5_one_gravity_f32": 0.191,
+ "S6_bisection_8x40": 143.941,
+ "S7_od_assembly": 15.244,
+ "S8_write_csv": 5.74,
+ "S8_write_npy": 0.11,
+ "_meta": {
+  "zones": 3147,
+  "nodes": 33963,
+  "links": 75939,
+  "od_rows_written": 1787324
+ }
+}

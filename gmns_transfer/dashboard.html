@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TRMG2 · GMNS Transfer — Open Four-Step + Tensor Flow-Through</title>
+<meta name="viewport" content="width=1280">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F2EBDC; --paper-2:#EBE2CD;
+  --ink:#0E1A2A; --ink-2:#384556;
+  --ochre:#B7741C; --crimson:#9C2E22; --forest:#3D6B47; --teal:#1F4E5F;
+  --serif:"Newsreader",ui-serif,Georgia,serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:15px;line-height:1.5}
+body{padding:32px 40px 80px;max-width:1480px;margin:0 auto}
+em{font-style:italic;color:var(--ochre);font-weight:500}
+.mono{font-family:var(--mono)}
+.num{font-variant-numeric:tabular-nums}
+
+/* masthead */
+header.masthead{border-top:3px solid var(--ink);border-bottom:1px solid var(--ink);padding:18px 0 14px;margin-bottom:26px;display:grid;grid-template-columns:1fr auto 1fr;gap:24px;align-items:end}
+.eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2)}
+.masthead h1{font-weight:600;font-size:33px;letter-spacing:-0.012em;line-height:1.05;margin-top:6px;text-wrap:balance}
+.masthead .center{text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--ink-2);text-transform:uppercase;border-left:1px dotted var(--ink);border-right:1px dotted var(--ink);padding:0 18px}
+.masthead .center .lead{font-family:var(--serif);font-style:italic;text-transform:none;letter-spacing:0;font-size:14px;color:var(--ink);margin-top:4px}
+.masthead .right{text-align:right;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--ink-2)}
+.masthead .right .stamp{display:inline-block;border:1px solid var(--ink);color:var(--ink);padding:3px 9px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px;font-weight:600}
+
+/* tagline */
+.tagline{font-size:17px;line-height:1.45;max-width:64ch;margin-bottom:24px;color:var(--ink-2);text-wrap:balance}
+.tagline em{font-weight:600}
+
+/* layer stripe */
+.layers{display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid var(--ink);margin-bottom:26px;background:var(--paper-2)}
+.layer{padding:14px 18px;border-right:1px solid var(--ink);position:relative}
+.layer:last-child{border-right:none}
+.layer .k{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--ink-2)}
+.layer .title{font-size:17px;font-weight:600;margin-top:3px;line-height:1.2}
+.layer .desc{font-size:12.5px;line-height:1.45;margin-top:6px;color:var(--ink-2)}
+.layer .tag{position:absolute;top:11px;right:14px;font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;color:var(--ink-2);text-transform:uppercase}
+.layer.active{background:var(--paper);border-bottom:3px solid var(--ochre)}
+.layer.active .tag{color:var(--ochre)}
+
+/* section headings */
+.sec{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-2);border-bottom:1px solid var(--ink);padding-bottom:6px;margin:34px 0 16px;display:flex;justify-content:space-between;align-items:baseline}
+.sec b{font-family:var(--serif);font-size:19px;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink)}
+
+/* panels */
+.panel{border:1px solid var(--ink);background:var(--paper)}
+.panel-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--ink);padding:10px 15px;background:var(--paper-2)}
+.panel-head h2{font-weight:600;font-size:14.5px}
+.panel-head .meta{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+.panel-body{padding:15px}
+
+/* main grid */
+.main{display:grid;grid-template-columns:1fr 400px;gap:24px;align-items:start}
+
+/* pipeline svg */
+#pipeSvg{width:100%;height:360px;display:block}
+
+/* fidelity rail */
+.rail{display:flex;flex-direction:column;gap:18px}
+.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--ink);border:1px solid var(--ink)}
+.stat{background:var(--paper);padding:12px 14px}
+.stat .l{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2)}
+.stat .v{font-weight:600;font-size:26px;line-height:1;margin-top:6px;font-variant-numeric:tabular-nums}
+.stat .v small{font-size:12px;color:var(--ink-2);font-weight:400;margin-left:3px}
+.stat.good .v{color:var(--forest)} .stat.warn .v{color:var(--crimson)}
+.stat .d{font-family:var(--mono);font-size:10px;color:var(--ochre);margin-top:4px}
+.chip{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;font-weight:600}
+.chip.ok{color:var(--forest)} .chip.gap{color:var(--crimson)}
+
+/* generation chart */
+#genSvg{width:100%;height:300px;display:block}
+.legend{display:flex;gap:18px;font-family:var(--mono);font-size:10px;letter-spacing:.05em;color:var(--ink-2);margin-top:8px;flex-wrap:wrap}
+.legend span::before{content:"";display:inline-block;width:11px;height:11px;margin-right:5px;vertical-align:-1px}
+.legend .work::before{background:var(--teal)} .legend .nonwork::before{background:var(--ochre)}
+
+/* tables */
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);text-align:left;padding:9px 12px;border-bottom:1px solid var(--ink);background:var(--paper-2)}
+tbody td{padding:8px 12px;border-bottom:1px dotted #b7ad94;vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;color:var(--teal)}
+tbody tr.tot td{font-weight:600;border-top:1px solid var(--ink);background:rgba(183,116,28,.06)}
+
+/* two-col lower */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+.duo3{display:grid;grid-template-columns:1.15fr 1fr;gap:24px;align-items:start}
+
+/* ladder */
+.ladder{display:flex;flex-direction:column;gap:0;border:1px solid var(--ink)}
+.rung{display:grid;grid-template-columns:34px 1fr auto;align-items:center;padding:11px 14px;border-bottom:1px solid var(--ink);gap:12px}
+.rung:last-child{border-bottom:none}
+.rung .r{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--ochre)}
+.rung .lbl{font-size:13.5px}.rung .lbl small{display:block;font-family:var(--mono);font-size:10px;color:var(--ink-2);letter-spacing:.04em;margin-top:2px}
+.rung .g{font-family:var(--mono);font-size:12px;font-variant-numeric:tabular-nums;color:var(--forest);text-align:right}
+
+/* FTT graph */
+#cgSvg{width:100%;height:300px;display:block;background:var(--paper)}
+
+/* value box */
+.value{border:1px solid var(--ink);background:var(--paper-2);margin-top:34px;display:grid;grid-template-columns:1fr 1fr;gap:1px}
+.value>div{background:var(--paper);padding:20px 22px}
+.value h3{font-size:16px;font-weight:600;margin-bottom:10px}
+.value h3 .mono{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);display:block;font-weight:400;margin-bottom:2px}
+.value ul{list-style:none;font-size:13.5px;line-height:1.5}
+.value li{padding:5px 0 5px 18px;position:relative;border-bottom:1px dotted #b7ad94}
+.value li:last-child{border-bottom:none}
+.value li::before{content:"▸";position:absolute;left:0;color:var(--ochre)}
+.value li b{font-family:var(--mono);font-size:12px;color:var(--teal);font-weight:600}
+
+.footer{margin-top:46px;padding-top:16px;border-top:1px solid var(--ink);display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+#tt{position:fixed;pointer-events:none;background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:11px;padding:6px 10px;display:none;z-index:1000;line-height:1.5;letter-spacing:.03em;white-space:pre}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="left">
+    <div class="eyebrow">Transportation+AI Lab · Arizona State University</div>
+    <h1>TRMG2 · <em>GMNS Transfer</em><br>An Open Four-Step Model</h1>
+  </div>
+  <div class="center">
+    For MPO Planners<br>
+    <span class="lead">A lens for understanding<br>the Triangle model, deeply.</span>
+  </div>
+  <div class="right">
+    <div class="stamp">Open GMNS · MIT</div>
+    <div>Triangle Region · 3,247 zones · 75,939 links</div>
+  </div>
+</header>
+
+<p class="tagline">An open companion for understanding TRMG2 more deeply — the same model, written <em>four consistent ways</em>: the equations, the matrix form, the tensors, and the code.</p>
+
+<div class="layers">
+  <div class="layer"><span class="tag">Read it</span>
+    <div class="k">LAYER 01</div><div class="title">Open &amp; Legible</div>
+    <div class="desc">Plain-CSV network + demand + assignment.</div>
+  </div>
+  <div class="layer active"><span class="tag">Understand it</span>
+    <div class="k">LAYER 02</div><div class="title"><em>Consistency</em> Across Forms</div>
+    <div class="desc">Equations = matrix = tensor = code.</div>
+  </div>
+  <div class="layer"><span class="tag">Study it</span>
+    <div class="k">LAYER 03</div><div class="title">A Differentiable Lens</div>
+    <div class="desc">Reload to rebuild; study by gradient.</div>
+  </div>
+</div>
+
+<!-- MAIN: pipeline + fidelity -->
+<div class="sec"><b>How a regional forecast is produced</b><span>socioeconomic data → trips → routes → congested skims → back to trips</span></div>
+<div class="main">
+  <div class="panel">
+    <div class="panel-head"><h2>The Four-Step Pipeline, as a Flow-Through Graph</h2><span class="meta">forward flow · backward time</span></div>
+    <div class="panel-body"><svg id="pipeSvg" viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg"></svg></div>
+  </div>
+  <div class="rail">
+    <div class="panel">
+      <div class="panel-head"><h2>The Reusable Snapshot</h2><span class="meta">AM · reload to rebuild</span></div>
+      <div class="panel-body" style="padding:0">
+        <div class="statgrid">
+          <div class="stat"><div class="l">Path columns</div><div class="v">1.76<small>M</small></div><div class="d">route choices Δ</div></div>
+          <div class="stat"><div class="l">OD pairs</div><div class="v">1.11<small>M</small></div><div class="d">origin → destination</div></div>
+          <div class="stat"><div class="l">Operator Π nonzeros</div><div class="v">79.8<small>M</small></div><div class="d">OD → link map</div></div>
+          <div class="stat"><div class="l">Rebuild the assignment</div><div class="v">1<small>matmul</small></div><div class="d">no network re-solve</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h2>What's Included, What's Next</h2><span class="meta">honest status</span></div>
+      <div class="panel-body" style="font-size:13px;line-height:1.5">
+        <p><span class="chip gap">next</span>&nbsp; Trip capture <b class="mono">30.7%</b> so far — resident home-based. Transit &amp; non-home-based trips await a one-time transit-skim import.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GENERATION + PERIODS -->
+<div class="duo3">
+  <div style="margin-top:0">
+    <div class="sec"><b>Who travels, and why</b><span>daily person-trips by home-based purpose</span></div>
+    <div class="panel"><div class="panel-body">
+      <svg id="genSvg" viewBox="0 0 640 300" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div class="legend"><span class="work">Work-based purposes</span><span class="nonwork">Non-work purposes</span><span style="color:var(--ink-2)">bar width ∝ daily person-trips · label = avg AM travel time</span></div>
+    </div></div>
+  </div>
+  <div>
+    <div class="sec"><b>Four periods</b><span>capacity hours</span></div>
+    <div class="panel"><div class="panel-body" style="padding:0">
+      <table><thead><tr><th>Period</th><th style="text-align:right">Cap. hrs</th><th style="text-align:right">Veh-trips</th><th style="text-align:right">Gap</th></tr></thead>
+      <tbody id="perBody"></tbody></table>
+    </div></div>
+  </div>
+</div>
+
+<!-- CONSISTENCY + FTT GRAPH -->
+<div class="duo">
+  <div>
+    <div class="sec"><b>The same model, four ways — all agree</b><span>consistency ladder</span></div>
+    <div class="ladder" id="ladder"></div>
+  </div>
+  <div>
+    <div class="sec"><b>Demand and supply, one graph</b><span>flow-through tensor</span></div>
+    <div class="panel"><div class="panel-body"><svg id="cgSvg" viewBox="0 0 460 300" xmlns="http://www.w3.org/2000/svg"></svg></div></div>
+  </div>
+</div>
+
+<!-- VALUE FOR MPO -->
+<div class="sec"><b>For your MPO</b><span>bring your network, keep your coefficients</span></div>
+<div class="value">
+  <div>
+    <h3><span class="mono">You provide</span>What goes in</h3>
+    <ul>
+      <li>A <b>GMNS</b> network — <b>node.csv</b> + <b>link.csv</b> (centroids first, sorted by from-node)</li>
+      <li>Zonal <b>socioeconomic data</b> as CSV — households, population, employment</li>
+      <li>Your <b>choice coefficients</b> — or reuse a calibrated set; nothing is invented for you</li>
+      <li>Optionally, a <b>transit level-of-service</b> matrix to unlock the transit terms</li>
+    </ul>
+  </div>
+  <div>
+    <h3><span class="mono">You get back</span>What comes out</h3>
+    <ul>
+      <li>A full <b>four-step forecast</b> + four-period equilibrium assignment</li>
+      <li>The <b>flow-through operators</b> (Δ, A, Π) — reload to reproduce instantly</li>
+      <li>A <b>gradient path</b> from link counts back to demand parameters</li>
+      <li>Open <b>fidelity gates</b> comparing every purpose to your survey targets</li>
+    </ul>
+  </div>
+</div>
+
+<div class="footer">
+  <div>trmg2 · gmns transfer · asu companion branch (mit, © itre)</div>
+  <div>transportation+ai lab · arizona state university</div>
+</div>
+
+<div id="tt"></div>
+<script>
+const D = {
+  generation:[
+    {k:"W_HB_W",   name:"Home → Work",            trips:637956,  am:17.1, work:1},
+    {k:"W_HB_O",   name:"Work-based Other",        trips:332436,  am:11.5, work:1},
+    {k:"W_HB_EK12", name:"Escort to K-12",          trips:72087,   am:8.6,  work:1},
+    {k:"N_HB_OME", name:"Maintenance",             trips:1127444, am:11.6, work:0},
+    {k:"N_HB_OMED",name:"Eat / Medical",           trips:120695,  am:15.7, work:0},
+    {k:"N_HB_ODS", name:"Discretionary · short",   trips:610862,  am:12.9, work:0},
+    {k:"N_HB_ODL", name:"Discretionary · long",    trips:966708,  am:12.7, work:0},
+    {k:"N_HB_K12", name:"School (K-12)",           trips:622069,  am:8.3,  work:0}
+  ],
+  periods:[
+    {p:"AM", cap:2.423, veh:546511, gap:"0.00043%"},
+    {p:"MD", cap:5.5,   veh:998496, gap:"0.00003%"},
+    {p:"PM", cap:2.753, veh:833497, gap:"0.00057%"},
+    {p:"NT", cap:4.0,   veh:871014, gap:"0.00008%"}
+  ],
+  ladder:[
+    {r:"R1", lbl:"Regular (indexed)", sub:"matched to the reference source, line by line", g:"reference"},
+    {r:"R2", lbl:"Matrix form",       sub:"the production nested-DC operator",             g:"= R1  (0.0e0)"},
+    {r:"R3", lbl:"Tensor (autodiff)", sub:"batched, GPU/ONNX-ready",                        g:"= R1  (1.4e-14)"},
+    {r:"R4", lbl:"Executable code",   sub:"what actually runs the forecast",                g:"= R1  (verified)"}
+  ]
+};
+const $=id=>document.getElementById(id), NS="http://www.w3.org/2000/svg";
+const el=(t,a={})=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e;};
+const C={ink:"#0E1A2A",ink2:"#384556",ochre:"#B7741C",crim:"#9C2E22",forest:"#3D6B47",teal:"#1F4E5F",paper:"#F2EBDC",paper2:"#EBE2CD"};
+const tt=$("tt"),tip=(e,t)=>{tt.style.display="block";tt.textContent=t;tt.style.left=(e.clientX+12)+"px";tt.style.top=(e.clientY+12)+"px";},hide=()=>tt.style.display="none";
+const fmt=n=>n.toLocaleString("en-US");
+
+/* ---------- PIPELINE FLOW-THROUGH ---------- */
+(function(){
+  const s=$("pipeSvg");
+  const steps=[
+    {x:60, t:"SE data", d:"households · jobs", c:C.teal},
+    {x:190,t:"Generation", d:"trips per zone", c:C.ochre},
+    {x:320,t:"Destination", d:"nested logit", c:C.ochre},
+    {x:450,t:"Mode · TOD", d:"who drives, when", c:C.ochre},
+    {x:580,t:"Assignment", d:"routes → links", c:C.forest}
+  ];
+  const yF=120, yB=232, bw=104, bh=54;
+  // forward arrows (top)
+  for(let i=0;i<steps.length-1;i++){
+    const x1=steps[i].x+bw, x2=steps[i+1].x;
+    s.appendChild(el("line",{x1:x1,y1:yF+bh/2,x2:x2,y2:yF+bh/2,stroke:C.ink,"stroke-width":1.4,"marker-end":"url(#ar)"}));
+  }
+  // backward skim arrow (bottom, feedback)
+  s.appendChild(el("path",{d:`M ${steps[4].x+bw/2} ${yF+bh} L ${steps[4].x+bw/2} ${yB} L ${steps[2].x+bw/2} ${yB} L ${steps[2].x+bw/2} ${yF+bh}`,fill:"none",stroke:C.crim,"stroke-width":1.3,"stroke-dasharray":"5 4","marker-end":"url(#arC)"}));
+  const sl=el("text",{x:(steps[2].x+steps[4].x)/2+bw/2,y:yB+16,"text-anchor":"middle","font-family":"'JetBrains Mono', ui-monospace, monospace","font-size":10,fill:C.crim,"letter-spacing":".08em"});sl.textContent="CONGESTED SKIMS FEED BACK (feedback loop)";s.appendChild(sl);
+  // boxes
+  steps.forEach((st,i)=>{
+    const g=el("g");g.style.cursor="default";
+    g.appendChild(el("rect",{x:st.x,y:yF,width:bw,height:bh,fill:i===steps.length-1?"rgba(61,107,71,.10)":i===0?"rgba(31,78,95,.08)":"#F2EBDC",stroke:st.c,"stroke-width":1.6}));
+    const n=el("text",{x:st.x+bw/2,y:yF+23,"text-anchor":"middle","font-family":"Newsreader, Georgia, serif","font-size":14,"font-weight":600,fill:C.ink});n.textContent=st.t;g.appendChild(n);
+    const d=el("text",{x:st.x+bw/2,y:yF+40,"text-anchor":"middle","font-family":"'JetBrains Mono', ui-monospace, monospace","font-size":9.5,fill:C.ink2});d.textContent=st.d;g.appendChild(d);
+    const num=el("text",{x:st.x+bw/2,y:yF-9,"text-anchor":"middle","font-family":"'JetBrains Mono', ui-monospace, monospace","font-size":10,fill:C.ochre,"letter-spacing":".14em"});num.textContent="0"+(i+1);g.appendChild(num);
+    s.appendChild(g);
+  });
+  // tensor labels between DC and assignment
+  const tags=[{x:281,t:"f_OD"},{x:411,t:"f_OD,t,m"},{x:541,t:"Δ · A · Π"}];
+  tags.forEach(tg=>{const t=el("text",{x:tg.x,y:yF-9,"text-anchor":"middle","font-family":"'JetBrains Mono', ui-monospace, monospace","font-size":9.5,fill:C.teal});t.textContent=tg.t;s.appendChild(t);});
+  // caption line at top
+  const cap=el("text",{x:360,y:56,"text-anchor":"middle","font-family":"Newsreader, Georgia, serif","font-style":"italic","font-size":13,fill:C.ink2});
+  cap.textContent="Forward: demand flows down to link volumes.  Backward: travel times propagate up to close the loop.";s.appendChild(cap);
+  // defs
+  const defs=el("defs");
+  [["ar",C.ink],["arC",C.crim]].forEach(([id,col])=>{const m=el("marker",{id:id,markerWidth:8,markerHeight:8,refX:6,refY:3,orient:"auto"});m.appendChild(el("path",{d:"M0,0 L6,3 L0,6 Z",fill:col}));defs.appendChild(m);});
+  s.appendChild(defs);
+})();
+
+/* ---------- GENERATION BARS ---------- */
+(function(){
+  const s=$("genSvg"),W=640,rows=D.generation.slice().sort((a,b)=>b.trips-a.trips);
+  const max=Math.max(...rows.map(r=>r.trips)), x0=150, xW=W-x0-70, y0=14, rh=32, gap=3;
+  rows.forEach((r,i)=>{
+    const y=y0+i*(rh+gap), w=Math.max(2,r.trips/max*xW), col=r.work?C.teal:C.ochre;
+    const lbl=el("text",{x:x0-10,y:y+rh/2+4,"text-anchor":"end","font-family":"Newsreader, Georgia, serif","font-size":13,fill:C.ink});lbl.textContent=r.name;s.appendChild(lbl);
+    const g=el("g");g.style.cursor="pointer";
+    g.addEventListener("mousemove",e=>tip(e,`${r.k}\n${fmt(r.trips)} daily person-trips\navg AM time ${r.am} min`));g.addEventListener("mouseleave",hide);
+    g.appendChild(el("rect",{x:x0,y:y,width:w,height:rh,fill:col,opacity:.85}));
+    const v=el("text",{x:x0+w+7,y:y+rh/2-2,"font-family":"'JetBrains Mono', ui-monospace, monospace","font-size":11,"font-weight":600,fill:C.ink,"dominant-baseline":"middle"});v.textContent=(r.trips/1000).toFixed(0)+"k";g.appendChild(v);
+    const a=el("text",{x:x0+w+7,y:y+rh/2+11,"font-family":"'JetBrains Mono', ui-monospace, monospace","font-size":9,fill:"#F2EBDC","dominant-baseline":"middle"});
+    // put am-time inside bar if space, else after
+    if(w>60){a.setAttribute("x",x0+w-6);a.setAttribute("text-anchor","end");a.setAttribute("fill",C.paper);a.textContent=r.am+" min";}
+    else{a.setAttribute("x",x0+w+34);a.setAttribute("fill",C.ink2);a.textContent=r.am+"m";}
+    a.setAttribute("y",y+rh/2+1);a.setAttribute("dominant-baseline","middle");g.appendChild(a);
+    s.appendChild(g);
+  });
+  const tot=rows.reduce((a,b)=>a+b.trips,0);
+  const t=el("text",{x:x0,y:y0+rows.length*(rh+gap)+16,"font-family":"'JetBrains Mono', ui-monospace, monospace","font-size":10.5,fill:C.ink2});t.textContent="TOTAL DAILY HOME-BASED PERSON-TRIPS ≈ "+fmt(tot);s.appendChild(t);
+})();
+
+/* ---------- PERIODS TABLE ---------- */
+(function(){
+  const b=$("perBody");
+  D.periods.forEach(p=>{
+    const tr=document.createElement("tr");
+    tr.innerHTML=`<td><b>${p.p}</b></td><td class="n">${p.cap.toFixed(2)}</td><td class="n">${fmt(p.veh)}</td><td class="n" style="color:var(--forest)">${p.gap}</td>`;
+    b.appendChild(tr);
+  });
+  const tot=D.periods.reduce((a,p)=>a+p.veh,0);
+  const tr=document.createElement("tr");tr.className="tot";
+  tr.innerHTML=`<td>All day</td><td class="n">14.68</td><td class="n">${fmt(tot)}</td><td class="n">converged</td>`;b.appendChild(tr);
+})();
+
+/* ---------- LADDER ---------- */
+(function(){
+  const L=$("ladder");
+  D.ladder.forEach(r=>{
+    const d=document.createElement("div");d.className="rung";
+    d.innerHTML=`<div class="r">${r.r}</div><div class="lbl">${r.lbl}<small>${r.sub}</small></div><div class="g">${r.g}</div>`;
+    L.appendChild(d);
+  });
+})();
+
+/* ---------- FTT COMP GRAPH ---------- */
+(function(){
+  const s=$("cgSvg");
+  const nodes=[
+    {id:"od",x:70,y:50,t:"f_OD",d:"OD trips",c:C.ochre},
+    {id:"p",x:70,y:150,t:"f_P",d:"path flows",c:C.ochre},
+    {id:"l",x:70,y:250,t:"f_L",d:"link volumes",c:C.forest},
+    {id:"tl",x:300,y:250,t:"t_L",d:"link times φ(·)",c:C.forest},
+    {id:"tp",x:300,y:150,t:"t_P",d:"path times",c:C.teal},
+    {id:"tod",x:300,y:50,t:"t_OD",d:"OD skims",c:C.teal}
+  ];
+  const edges=[
+    ["od","p","Δᵀ",1],["p","l","Aᵀ",1],
+    ["l","tl","BPR",0],["tl","tp","A",-1],["tp","tod","Δ",-1]
+  ];
+  const map={};nodes.forEach(n=>map[n.id]=n);
+  const defs=el("defs");[["af",C.ink],["ab",C.teal]].forEach(([id,c])=>{const m=el("marker",{id:id,markerWidth:8,markerHeight:8,refX:6,refY:3,orient:"auto"});m.appendChild(el("path",{d:"M0,0 L6,3 L0,6 Z",fill:c}));defs.appendChild(m);});s.appendChild(defs);
+  edges.forEach(([a,b,lab,dir])=>{
+    const A=map[a],B=map[b],col=dir<0?C.teal:C.ink;
+    s.appendChild(el("line",{x1:A.x+38,y1:A.y,x2:B.x-38,y2:B.y,stroke:col,"stroke-width":1.3,"marker-end":dir<0?"url(#ab)":"url(#af)","stroke-dasharray":dir===0?"4 3":"0"}));
+    const mx=(A.x+B.x)/2,my=(A.y+B.y)/2;
+    const t=el("text",{x:mx,y:my-6,"text-anchor":"middle","font-family":"'JetBrains Mono', ui-monospace, monospace","font-size":11,"font-weight":600,fill:col});t.textContent=lab;s.appendChild(t);
+  });
+  nodes.forEach(n=>{
+    s.appendChild(el("circle",{cx:n.x,cy:n.y,r:26,fill:"#F2EBDC",stroke:n.c,"stroke-width":1.8}));
+    const t=el("text",{x:n.x,y:n.y+1,"text-anchor":"middle","font-family":"Newsreader, Georgia, serif","font-size":13,"font-weight":600,fill:C.ink,"dominant-baseline":"middle"});t.textContent=n.t;s.appendChild(t);
+    const d=el("text",{x:n.x,y:n.y+40,"text-anchor":"middle","font-family":"'JetBrains Mono', ui-monospace, monospace","font-size":8.5,fill:C.ink2});d.textContent=n.d;s.appendChild(d);
+  });
+  const f=el("text",{x:185,y:20,"text-anchor":"middle","font-family":"Newsreader, Georgia, serif","font-style":"italic","font-size":12,fill:C.ink2});f.textContent="forward flow ↓   backward time ↑";s.appendChild(f);
+})();
+</script>
+</body>
+</html>

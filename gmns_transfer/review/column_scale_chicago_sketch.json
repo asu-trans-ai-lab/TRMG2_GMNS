@@ -1,0 +1,59 @@
+{
+ "case": "chicago_sketch",
+ "n_od_total": 93135,
+ "n_od_active": 56821,
+ "reduction": 0.3899,
+ "obs_links": 295,
+ "nnz_full": 2005476,
+ "nnz_obs": 473060,
+ "prmse_start": 10.85,
+ "prmse_end": 9.69,
+ "admm_iters": 150,
+ "drift_max": 0.202,
+ "drift_mean": 0.001,
+ "true_perturb": 0.35,
+ "mu": 0.5,
+ "t_factor": 0.3,
+ "t_admm": 44.0,
+ "n_blocks": 386,
+ "trace_head": [
+  {
+   "it": 0,
+   "r_pri": 0.005,
+   "r_dual": 0.005,
+   "prmse": 10.85
+  },
+  {
+   "it": 1,
+   "r_pri": 0.005,
+   "r_dual": 0.0,
+   "prmse": 10.85
+  },
+  {
+   "it": 2,
+   "r_pri": 0.005,
+   "r_dual": 0.0,
+   "prmse": 10.84
+  }
+ ],
+ "trace_tail": [
+  {
+   "it": 147,
+   "r_pri": 0.0003,
+   "r_dual": 0.0,
+   "prmse": 9.69
+  },
+  {
+   "it": 148,
+   "r_pri": 0.0003,
+   "r_dual": 0.0,
+   "prmse": 9.69
+  },
+  {
+   "it": 149,
+   "r_pri": 0.0003,
+   "r_dual": 0.0,
+   "prmse": 9.69
+  }
+ ]
+}

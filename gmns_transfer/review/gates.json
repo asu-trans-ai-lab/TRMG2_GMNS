@@ -1,0 +1,128 @@
+[
+ {
+  "id": "G1",
+  "step": "02 Network",
+  "name": "GMNS build completeness",
+  "status": "PASS",
+  "metric": "links 75939, zones 3247, skipped 0, no-coord 0",
+  "reference": "capacity.csv/ff_speed lookups + TransCAD export",
+  "note": ""
+ },
+ {
+  "id": "G2",
+  "step": "net.net decode",
+  "name": "topology vs TransCAD FROM_ID/TO_ID",
+  "status": "SKIP",
+  "metric": "135,922 links in topology.csv; export absent (was 135,922/135,922 exact at build time)",
+  "reference": "2026-07-04 TransCAD export (not bundled)",
+  "note": ""
+ },
+ {
+  "id": "G3",
+  "step": "05 Generation",
+  "name": "daily person trips vs survey wTrips",
+  "status": "FAIL",
+  "metric": "W_HB_W_All +49%; W_HB_O_All +8%; W_HB_EK12_All -44%; N_HB_OME_All +10%; N_HB_OMED_All +14%; N_HB_OD_Short +3%; N_HB_OD_Long +15%; N_HB_K12_All -21%",
+  "reference": "eda_scheme6.csv wTrips",
+  "note": "stand-in aggregate rates; exact reproduction = task #4/#5 (population synthesis + decision-tree rule application)"
+ },
+ {
+  "id": "G4",
+  "step": "13 DC",
+  "name": "intrazonal share vs intrazonals.csv",
+  "status": "DEVIATION",
+  "metric": "ours 0% for all purposes vs reference N_HB_K12_All 2.9%, N_HB_OD_Long 3.5%, N_HB_OD_Short 10.7%, N_HB_OME_All 3.5% ...",
+  "reference": "docs/data/output/resident_dc/intrazonals.csv",
+  "note": "D1: v1.5 excludes intrazonal trips (no IZ times yet); fix = 10:76-88 intrazonal time formula, task #6"
+ },
+ {
+  "id": "G5",
+  "step": "13 DC",
+  "name": "avg AM congested time per purpose (diagnostic)",
+  "status": "PASS",
+  "metric": "W_HB_W_All 13.1min; W_HB_O_All 9.7min; W_HB_EK12_All 9.2min; N_HB_OME_All 11.3min ...",
+  "reference": "reported only \u2014 NOT calibrated (their DC coefficients used verbatim)",
+  "note": ""
+ },
+ {
+  "id": "G7",
+  "step": "12 Mode choice",
+  "name": "mode split source",
+  "status": "DEVIATION",
+  "metric": "survey shares from eda_scheme6 (auto_pay/other_auto folded into sov/hov)",
+  "reference": "master/resident/mode/*.csv nested logit",
+  "note": "D2: nested-logit MC not yet applied; task #5. Transit LOS frozen pending."
+ },
+ {
+  "id": "G8",
+  "step": "17 Assignment",
+  "name": "relative gap per period",
+  "status": "PASS",
+  "metric": "AM 0.000590 %; MD 0.000031 %; PM 0.000541 %; NT 0.000084 %",
+  "reference": "TRMG2 AssignConvergence 1e-5 (%RMSE-based); ours: kernel rel gap",
+  "note": ""
+ },
+ {
+  "id": "G9",
+  "step": "Validation",
+  "name": "daily counts: ours vs TRMG2 benchmark",
+  "status": "DEVIATION",
+  "metric": "captured share 0.341; Arterial: ours -59.63% / ref -2.42%; Collector: ours -55.24% / ref -2.32%; Freeway: ours -76.74% / ref 0.86%; Local: ours -57.16% / ref -4.56% ...",
+  "reference": "count_comparison_by_fac_type.csv",
+  "note": "D3: v1.5 = resident HB only; NHB/CV/univ/airport/externals pending (tasks #7/#8). Gate flips to PASS/FAIL tolerance once components complete."
+ },
+ {
+  "id": "G6",
+  "step": "03 Accessibility",
+  "name": "access_nearby_sov/transit/walk per zone",
+  "status": "PENDING",
+  "metric": "reference ready: nhb_generation.csv access columns (3,062 TAZ)",
+  "reference": "docs/data/input/nhb/nhb_generation.csv",
+  "note": "task #2"
+ },
+ {
+  "id": "G10",
+  "step": "04 PopSynthesis",
+  "name": "731,913 HH / 1,783,548 persons + marginals",
+  "status": "PENDING",
+  "metric": "reference: paper totals + disagg curves (deterministic)",
+  "reference": "income/size/worker_curves.csv",
+  "note": "task #3"
+ },
+ {
+  "id": "G11",
+  "step": "04 Auto ownership",
+  "name": "AO shares uncalibrated -> calibrated",
+  "status": "PENDING",
+  "metric": "reference ready: uncalibrated_auto_results.csv + ao_calib_targets.csv",
+  "reference": "docs/data/output/auto_ownership/",
+  "note": "task #3"
+ },
+ {
+  "id": "G12",
+  "step": "06 NonMotorized",
+  "name": "NM share per purpose",
+  "status": "PENDING",
+  "metric": "reference ready: nonmotorized/calibration_targets.csv",
+  "reference": "docs/data/output/nonmotorized/",
+  "note": "task follows #4"
+ },
+ {
+  "id": "G13",
+  "step": "14 NHB",
+  "name": "per-TAZ NHB gen vs their model values",
+  "status": "PENDING",
+  "metric": "reference ready: nhb_generation.csv purpose x mode x period columns",
+  "reference": "docs/data/input/nhb/nhb_generation.csv",
+  "note": "task #7"
+ },
+ {
+  "id": "G14",
+  "step": "Feedback",
+  "name": "skim %RMSE <= 0.1 in <= 5 iterations",
+  "status": "PENDING",
+  "metric": "loop not built",
+  "reference": "trmg2.model:227-253",
+  "note": "task #9"
+ }
+]

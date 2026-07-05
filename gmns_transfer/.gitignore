@@ -1,0 +1,59 @@
+# NOTE: .gitignore does NOT support inline (end-of-line) comments — every comment
+# MUST be on its own line, or the pattern is read literally and matches nothing.
+
+# ═══════════════════════════════════════════════════════════════════════════
+#  DO NOT UPLOAD THE ROUTE FILE
+#  route_assignment.csv is 1.6 GB, exceeds GitHub's 100 MB limit, and is fully
+#  regenerable (kernel with route_output=1, then: python matrix_ops.py AM).
+# ═══════════════════════════════════════════════════════════════════════════
+scenario_*/route_assignment.csv
+route_assignment.csv
+**/route_assignment.csv
+
+# NEVER publish (sensitive / not-for-redistribution)
+private/
+
+# Pre-assignment tensors are shipped as a GitHub RELEASE asset (not in git — this
+# is a public fork, which cannot host LFS). Download the release bundle, or rebuild
+# with: python matrix_ops.py AM
+matrices/*.npz
+matrices/*.npy
+matrices/od_index_*.csv
+matrices/path_meta_*.csv
+
+# Pre-built ONNX / torch weights also ship in the release bundle
+tcg/artifacts/*.onnx.data
+tcg/artifacts/*.pt2
+
+# >100 MB regenerable intermediates — NOT worth LFS (rebuild: matrix_ops.py AM)
+scenario_*/od_performance.csv
+
+# Regenerable kernel outputs (heavy, no need to ship)
+scenario_*/link_performance.csv
+scenario_*/*accessibility.csv
+scenario_*/system_performance.csv
+scenario_*/TAP_log.csv
+
+# Regenerable per-period build folders (make_od_4period.py rebuilds from scenario/)
+scenario_AM/
+scenario_MD/
+scenario_PM/
+scenario_NT/
+
+
+# Unpublished manuscripts / math derivations (belong in private/, never public)
+*.tex
+TCG_MATH.pdf
+
+# Logs, caches, scratch
+archive/
+*.log
+__pycache__/
+*.pyc
+*.aux
+*.out
+results/
+
+# KEEP: scripts, config/, se_data/, params/, doc/ (operational md only),
+# scenario/ (base node+link), topology.csv, node_crosswalk.csv, ATTRIBUTION.md,
+# LICENSE, README.md.
