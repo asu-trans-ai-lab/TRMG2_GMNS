@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Observatory · Tab 4 — Trip Generation</title>
+<meta name="viewport" content="width=1200">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F2EBDC;--paper-2:#EBE2CD;--ink:#0E1A2A;--ink-2:#384556;--ochre:#B7741C;--crimson:#9C2E22;--forest:#3D6B47;--teal:#1F4E5F;--serif:"Newsreader",ui-serif,Georgia,serif;--mono:"JetBrains Mono",ui-monospace,Menlo,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:15px;line-height:1.5}
+body{padding:30px 40px 70px;max-width:1200px;margin:0 auto}
+em{font-style:italic;color:var(--ochre);font-weight:500}
+header{border-top:3px solid var(--ink);border-bottom:1px solid var(--ink);padding:16px 0 13px;margin-bottom:20px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
+.eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2)}
+header h1{font-weight:600;font-size:29px;letter-spacing:-.012em;margin-top:6px}
+.tabs{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;text-align:right;color:#a99f86}
+.tabs .on{color:var(--ochre);font-weight:600;border-bottom:2px solid var(--ochre);padding-bottom:2px}
+.tabs .crumb{color:var(--ink-2);margin-bottom:3px}
+.lede{font-size:16px;line-height:1.5;max-width:72ch;color:var(--ink-2);margin-bottom:22px}
+.lede b{color:var(--ink);font-weight:600}
+.chip{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;font-weight:600}
+.c-stand{color:var(--ochre)}
+.sec{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-2);border-bottom:1px solid var(--ink);padding-bottom:6px;margin:28px 0 14px;display:flex;justify-content:space-between;align-items:baseline}
+.sec b{font-family:var(--serif);font-size:18px;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.panel{border:1px solid var(--ink);background:var(--paper)}
+.panel-head{border-bottom:1px solid var(--ink);padding:9px 14px;background:var(--paper-2);font-weight:600;font-size:14px;display:flex;justify-content:space-between;align-items:center}
+.panel-head .m{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-2);font-weight:400}
+.panel-body{padding:14px}
+#genSvg{width:100%;height:330px;display:block}
+/* decision tree */
+.tree{font-family:var(--mono);font-size:12.5px;line-height:1.9}
+.tree .row{display:grid;grid-template-columns:1fr 120px 74px;align-items:center;gap:8px}
+.tree .cond{white-space:pre;color:var(--ink)}
+.tree .cond .k{color:var(--teal)}
+.tree .barwrap{background:var(--paper-2);height:15px;border:1px solid #cdbf9e;position:relative}
+.tree .bar{height:100%;background:var(--forest);position:absolute;left:0;top:0}
+.tree .bar.lo{background:#c9b28a}
+.tree .meta{font-size:10.5px;color:var(--ink-2);text-align:right}
+.tree .rate{position:absolute;right:4px;top:0;font-size:9.5px;line-height:15px;color:var(--ink);font-weight:600}
+.tree .dom{color:var(--ochre)}
+.foot{margin-top:36px;padding-top:14px;border-top:1px solid var(--ink);display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+.note{font-size:12.5px;color:var(--ink-2);line-height:1.55;margin-top:10px}
+.note b{color:var(--ink)}
+#tt{position:fixed;pointer-events:none;background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:11px;padding:6px 10px;display:none;z-index:1000;white-space:pre;line-height:1.5}
+</style>
+</head>
+<body>
+<header>
+  <div><div class="eyebrow">Regional Model Observatory · A Learning Companion</div>
+  <h1>Tab 4 · <em>Trip Generation</em> — who travels, and why</h1></div>
+  <div class="tabs"><div class="crumb">module 4 of 9</div>
+  <a href="observatory.html">1 Inventory</a> · <span class="on">4 Generation</span> · <a href="observatory_destination.html">5 Destination</a> · …</div>
+</header>
+
+<p class="lede"><b>How many trips does each person make in a day?</b> TRMG2 answers this at the
+<b>person level</b> with a <em>decision tree</em> — chosen over regression because a
+planner can read it. Below: the eight home-based purposes it produces, and the
+actual tree for home-based work. <span class="chip c-stand">~ stand-in</span> our open
+reproduction applies these rates at the <b>zone</b> level (matching survey totals);
+the true person-level tree needs the synthetic population (Tab 3).</p>
+
+<div class="grid">
+  <div>
+    <div class="sec"><b>Eight home-based purposes</b><span>daily person-trips</span></div>
+    <div class="panel"><div class="panel-body">
+      <svg id="genSvg" viewBox="0 0 560 330" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div></div>
+    <p class="note">Total <b>≈4.48 M</b> daily home-based person-trips. Maintenance and
+    discretionary travel outweigh work — the everyday errands a region runs on.</p>
+  </div>
+  <div>
+    <div class="sec"><b>Reading the decision tree</b><span>home-based work · paper Fig. 6</span></div>
+    <div class="panel"><div class="panel-head">Trips per person per day<span class="m">rate · sample n</span></div>
+    <div class="panel-body"><div class="tree" id="tree"></div></div></div>
+    <p class="note">Follow a person down the branches: a <b class="k" style="color:var(--teal)">non-worker</b>
+    makes ~0 work trips; a <b>working adult</b> with no complicating household makes
+    <b>0.96</b>; kids or elders in the household nudge it up or down. That interpretability
+    is the whole point — <b>you can explain every number.</b></p>
+  </div>
+</div>
+
+<div id="tt"></div>
+<script>
+const PURP=[
+ {n:"Home → Work",v:637956,w:1},{n:"Work-based Other",v:332436,w:1},{n:"Escort to K-12",v:72087,w:1},
+ {n:"Maintenance",v:1127444,w:0},{n:"Eat / Medical",v:120695,w:0},{n:"Discretionary short",v:610862,w:0},
+ {n:"Discretionary long",v:966708,w:0},{n:"School (K-12)",v:622069,w:0}];
+// HBW decision-tree leaves (production_rates.csv): condition, rate, n, depth
+const TREE=[
+ {c:"is_worker = 0",r:0.00,n:6019,d:0},
+ {c:"worker · age &lt; 19",r:0.33,n:84,d:1},
+ {c:"worker · age 19–79 · kids&lt;2 · seniors&lt;2",r:0.96,n:5033,d:2,dom:1},
+ {c:"worker · age 19–79 · kids&lt;2 · seniors≥2",r:0.52,n:49,d:2},
+ {c:"worker · age 19–79 · kids≥2 · oth_wrkr&lt;1",r:0.99,n:279,d:2},
+ {c:"worker · age 19–79 · kids≥2 · oth_wrkr≥1",r:0.73,n:833,d:2},
+ {c:"worker · age ≥ 79",r:0.34,n:34,d:1}];
+const $=id=>document.getElementById(id),NS="http://www.w3.org/2000/svg";
+const el=(t,a)=>{const e=document.createElementNS(NS,t);for(k in a)e.setAttribute(k,a[k]);return e};
+const tt=$("tt"),tip=(e,t)=>{tt.style.display="block";tt.textContent=t;tt.style.left=(e.clientX+12)+"px";tt.style.top=(e.clientY+12)+"px"},hide=()=>tt.style.display="none";
+const fmt=n=>n.toLocaleString("en-US");
+// bars
+(function(){const s=$("genSvg"),rows=PURP.slice().sort((a,b)=>b.v-a.v),max=Math.max(...rows.map(r=>r.v)),x0=132,xW=560-x0-58,rh=32,g=4,y0=8;
+ rows.forEach((r,i)=>{const y=y0+i*(rh+g),w=Math.max(2,r.v/max*xW),c=r.w?"#1F4E5F":"#B7741C";
+  const lb=el("text",{x:x0-9,y:y+rh/2+4,"text-anchor":"end","font-family":"Newsreader, serif","font-size":12.5,fill:"#0E1A2A"});lb.textContent=r.n;s.appendChild(lb);
+  const gg=el("g",{});gg.style.cursor="pointer";gg.addEventListener("mousemove",e=>tip(e,r.n+"\n"+fmt(r.v)+" daily person-trips"));gg.addEventListener("mouseleave",hide);
+  gg.appendChild(el("rect",{x:x0,y:y,width:w,height:rh,fill:c,opacity:.86}));
+  const v=el("text",{x:x0+w+6,y:y+rh/2+4,"font-family":"JetBrains Mono, monospace","font-size":11,"font-weight":600,fill:"#0E1A2A"});v.textContent=(r.v/1000).toFixed(0)+"k";gg.appendChild(v);
+  s.appendChild(gg);});})();
+// tree
+(function(){const t=$("tree");
+ TREE.forEach(L=>{const pct=Math.round(L.r*100),ind="  ".repeat(L.d);
+  const row=document.createElement("div");row.className="row";
+  row.innerHTML=`<div class="cond">${ind}${L.d?"└ ":""}${L.c}</div>`+
+   `<div class="barwrap"><div class="bar ${L.r<.4?'lo':''}" style="width:${pct}%"></div><span class="rate">${L.r.toFixed(2)}</span></div>`+
+   `<div class="meta">n=${fmt(L.n)}${L.dom?' <span class="dom">◄</span>':''}</div>`;
+  t.appendChild(row);});})();
+</script>
+</body>
+</html>

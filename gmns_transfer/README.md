@@ -31,11 +31,17 @@ reproduces.
 Interactive, self-contained HTML — open locally, or enable GitHub Pages to view in
 the browser. Each is a focused module, not an everything-page:
 
-- **[observatory.html](observatory.html)** — *Model Inventory*: what the model is,
-  who governs it, the 21 modules with how-much-you-can-run status, per-step compute
-  cost, and doc reading times. (Module 1 of a 9-tab observatory roadmap.)
+- **[observatory.html](observatory.html)** — *Model Inventory* (Tab 1): what the model
+  is, who governs it, the 21 modules with how-much-you-can-run status, per-step compute
+  cost, and doc reading times.
+- **[observatory_generation.html](observatory_generation.html)** — *Trip Generation*
+  (Tab 4): the 8 home-based purposes + the actual home-based-work decision tree.
+- **[observatory_destination.html](observatory_destination.html)** — *Destination
+  Choice* (Tab 5): the nested logit over 12 districts + a real AM district OD heatmap.
 - **[dashboard.html](dashboard.html)** — the four-step model + tensor flow-through
   at a glance.
+
+3 of the 9 observatory tabs are built; the rest are on the roadmap.
 
 ### Built on GMNS
 

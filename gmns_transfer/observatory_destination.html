@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Observatory · Tab 5 — Destination Choice</title>
+<meta name="viewport" content="width=1200">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F2EBDC;--paper-2:#EBE2CD;--ink:#0E1A2A;--ink-2:#384556;--ochre:#B7741C;--crimson:#9C2E22;--forest:#3D6B47;--teal:#1F4E5F;--serif:"Newsreader",ui-serif,Georgia,serif;--mono:"JetBrains Mono",ui-monospace,Menlo,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:15px;line-height:1.5}
+body{padding:30px 40px 70px;max-width:1240px;margin:0 auto}
+em{font-style:italic;color:var(--ochre);font-weight:500}
+header{border-top:3px solid var(--ink);border-bottom:1px solid var(--ink);padding:16px 0 13px;margin-bottom:20px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
+.eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2)}
+header h1{font-weight:600;font-size:29px;letter-spacing:-.012em;margin-top:6px}
+.tabs{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;text-align:right;color:#a99f86}
+.tabs .on{color:var(--ochre);font-weight:600;border-bottom:2px solid var(--ochre);padding-bottom:2px}
+.tabs .crumb{color:var(--ink-2);margin-bottom:3px}
+.lede{font-size:16px;line-height:1.5;max-width:74ch;color:var(--ink-2);margin-bottom:22px}
+.lede b{color:var(--ink);font-weight:600}
+.chip{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;font-weight:600}
+.c-rep{color:var(--forest)}
+.sec{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-2);border-bottom:1px solid var(--ink);padding-bottom:6px;margin:26px 0 14px;display:flex;justify-content:space-between;align-items:baseline}
+.sec b{font-family:var(--serif);font-size:18px;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink)}
+.grid{display:grid;grid-template-columns:300px 1fr;gap:30px;align-items:start}
+/* nesting */
+.nest{font-family:var(--mono);font-size:12px;line-height:1.7;border:1px solid var(--ink);background:var(--paper);padding:13px 15px;margin-bottom:16px}
+.nest .step{display:flex;align-items:center;gap:8px}
+.nest .b{width:20px;height:20px;border:1.5px solid var(--ochre);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--ochre);flex:none}
+.nest .arw{color:var(--ink-2);margin:2px 0 2px 9px}
+.nest small{color:var(--ink-2)}
+/* district list */
+.dlist{font-family:var(--mono);font-size:11.5px;border:1px solid var(--ink)}
+.dlist .r{display:flex;justify-content:space-between;padding:5px 12px;border-bottom:1px dotted #b7ad94}
+.dlist .r:last-child{border-bottom:none}
+.dlist .r.hi{background:rgba(183,116,28,.10)}
+.dlist .z{color:var(--ink-2)}
+/* heatmap */
+.hm{display:grid;gap:2px}
+.hm .cell{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:8.5px;color:#0E1A2A;cursor:default;min-width:0}
+.hm .cell.diag{outline:1.5px solid var(--ochre);outline-offset:-1.5px;font-weight:600}
+.hm .lbl{font-family:var(--mono);font-size:9px;color:var(--ink-2);display:flex;align-items:center;justify-content:flex-end;padding-right:4px;text-align:right}
+.hm .lblt{font-family:var(--mono);font-size:8.5px;color:var(--ink-2);writing-mode:vertical-rl;transform:rotate(180deg);justify-self:center;align-self:end;padding-bottom:3px}
+.hmwrap{border:1px solid var(--ink);background:var(--paper);padding:12px}
+.flows{display:grid;grid-template-columns:1fr 1fr;gap:0 26px;font-size:13px;margin-top:4px}
+.flows .f{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dotted #b7ad94}
+.flows .f b{font-family:var(--mono);font-size:12px;color:var(--teal)}
+.note{font-size:12.5px;color:var(--ink-2);line-height:1.55;margin-top:12px}.note b{color:var(--ink)}
+.foot{margin-top:36px;padding-top:14px;border-top:1px solid var(--ink);display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+#tt{position:fixed;pointer-events:none;background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:11px;padding:6px 10px;display:none;z-index:1000;white-space:pre;line-height:1.5}
+</style>
+</head>
+<body>
+<header>
+  <div><div class="eyebrow">Regional Model Observatory · A Learning Companion</div>
+  <h1>Tab 5 · <em>Destination Choice</em> — where trips go</h1></div>
+  <div class="tabs"><div class="crumb">module 5 of 9</div>
+  <a href="observatory.html">1 Inventory</a> · <a href="observatory_generation.html">4 Generation</a> · <span class="on">5 Destination</span> · …</div>
+</header>
+
+<p class="lede"><b>Given a trip, where does it go?</b> TRMG2 uses a <em>nested logit</em>: a
+traveler first picks a <b>district</b>, then a zone within it — which captures how
+people know some parts of a region better than others. The Triangle is split into
+<b>12 districts</b>. <span class="chip c-rep">✓ reproduced</span> this two-level nested
+choice is reproduced from the source; the matrix below is our own AM result.</p>
+
+<div class="grid">
+  <div>
+    <div class="sec"><b>How the choice nests</b><span>two levels</span></div>
+    <div class="nest">
+      <div class="step"><span class="b">i</span> Origin zone</div>
+      <div class="arw">↓ &nbsp;choose a district (12)</div>
+      <div class="step"><span class="b">c</span> District &nbsp;<small>θ scales the nest</small></div>
+      <div class="arw">↓ &nbsp;choose a zone in it</div>
+      <div class="step"><span class="b">j</span> Destination zone</div>
+      <div style="margin-top:8px;color:var(--ink-2);font-size:11px">size = jobs &amp; activities · deterrence = travel time</div>
+    </div>
+    <div class="sec" style="margin-top:8px"><b>The 12 districts</b><span>zones</span></div>
+    <div class="dlist" id="dlist"></div>
+  </div>
+  <div>
+    <div class="sec"><b>Where AM trips actually go</b><span>district → district · vehicles</span></div>
+    <div class="hmwrap"><div class="hm" id="hm"></div>
+      <div style="font-family:var(--mono);font-size:9.5px;color:var(--ink-2);margin-top:9px;display:flex;justify-content:space-between">
+        <span>row = origin · column = destination · color ∝ log(flow)</span>
+        <span><span style="display:inline-block;width:70px;height:6px;background:linear-gradient(to right,#EBE2CD,#1F4E5F);vertical-align:middle"></span> few → many</span></div>
+    </div>
+    <div class="sec"><b>Biggest movements</b><span>top inter-district flows</span></div>
+    <div class="flows" id="flows"></div>
+    <p class="note"><b>61%</b> of AM trips stay inside their own district (the bright diagonal) —
+    people travel locally. Of the rest, <b>Raleigh</b> is the dominant magnet: the
+    Northeast, Southeast, Garner and Cary all pour into it. That radial pull is the
+    region's structure, read straight off the model.</p>
+  </div>
+</div>
+
+<div id="tt"></div>
+<script>
+const NAMES=["RTP","Raleigh","Cary","Garner","Durham","Chapel Hill","S.Durham","Northwest","Northeast","Southeast","South","Southwest"];
+const ZONES=[44,469,378,143,339,170,218,234,395,341,177,57];
+const M=[
+[473,162,397,3,104,38,324,1,4,0,6,1],
+[2021,42718,5000,1494,849,214,1250,2,2208,268,42,1],
+[2485,6348,34175,659,838,274,1998,2,16,15,1270,37],
+[387,7074,2105,4886,123,33,119,0,110,578,408,0],
+[1316,468,553,1,10731,603,3016,209,223,0,0,4],
+[476,249,257,8,703,8982,1205,205,35,41,1,282],
+[3326,3192,4342,37,4395,1814,10817,89,220,1,106,70],
+[501,157,225,1,2673,1907,1000,9956,213,12,0,76],
+[1441,12728,1527,229,1383,180,856,57,28970,1110,7,1],
+[565,8049,1628,2257,170,64,173,2,1055,23666,1863,0],
+[887,2315,4939,560,312,140,463,2,7,598,8771,78],
+[186,129,245,1,130,1032,179,21,0,0,50,2620]];
+const $=id=>document.getElementById(id);const fmt=n=>Math.round(n).toLocaleString("en-US");
+const tt=$("tt"),tip=(e,t)=>{tt.style.display="block";tt.textContent=t;tt.style.left=(e.clientX+12)+"px";tt.style.top=(e.clientY+12)+"px"},hide=()=>tt.style.display="none";
+// district list (highlight Raleigh & Cary as biggest attractors)
+(function(){const attr=NAMES.map((_,j)=>M.reduce((s,r)=>s+r[j],0));const mx=Math.max(...attr);
+ NAMES.forEach((nm,i)=>{const d=document.createElement("div");d.className="r"+(attr[i]/mx>0.6?" hi":"");
+  d.innerHTML=`<span>${nm}</span><span class="z">${ZONES[i]} zones</span>`;$("dlist").appendChild(d);});})();
+// heatmap 13x13 (labels + 12x12)
+(function(){const hm=$("hm");hm.style.gridTemplateColumns="46px repeat(12,1fr)";
+ const mx=Math.max(...M.flat());const lg=v=>Math.log10(v+1)/Math.log10(mx+1);
+ // top-left corner
+ hm.appendChild(Object.assign(document.createElement("div"),{className:"lbl",textContent:""}));
+ NAMES.forEach(n=>{const c=document.createElement("div");c.className="lblt";c.textContent=n;hm.appendChild(c);});
+ M.forEach((row,i)=>{const lb=document.createElement("div");lb.className="lbl";lb.textContent=NAMES[i];hm.appendChild(lb);
+  row.forEach((v,j)=>{const c=document.createElement("div");c.className="cell"+(i===j?" diag":"");
+   const t=lg(v);c.style.background=`rgba(31,78,95,${(t*0.92).toFixed(3)})`;if(t>0.6)c.style.color="#F2EBDC";
+   if(v>=1000)c.textContent=(v/1000).toFixed(0)+"k";
+   c.addEventListener("mousemove",e=>tip(e,`${NAMES[i]} → ${NAMES[j]}\n${fmt(v)} veh`));c.addEventListener("mouseleave",hide);
+   hm.appendChild(c);});});})();
+// top interdistrict flows
+(function(){const f=[];for(let i=0;i<12;i++)for(let j=0;j<12;j++)if(i!==j)f.push([M[i][j],i,j]);
+ f.sort((a,b)=>b[0]-a[0]);f.slice(0,8).forEach(([v,i,j])=>{const d=document.createElement("div");d.className="f";
+  d.innerHTML=`<span>${NAMES[i]} → ${NAMES[j]}</span><b>${fmt(v)}</b>`;$("flows").appendChild(d);});})();
+</script>
+</body>
+</html>
