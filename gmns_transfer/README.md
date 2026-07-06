@@ -59,6 +59,57 @@ and inspectable: nodes, links, and movements are plain CSVs any tool can read.
 
 ---
 
+## Three demand engines + one control ladder
+
+A learning highlight of this transfer: the first three steps are run by **three
+interchangeable demand engines on the *same* TRMG2 data**, each judged against the *same*
+survey control totals — so the difference between them is the lesson, not an artifact of
+different inputs.
+
+| Track | Engine | Deterrence form | Calibrated knob(s) |
+|:--:|---|---|---|
+| **A** | TRMG2 nested-logit | size + β·time (behavioral) | deterrence multiplier |
+| **B** | UNC teaching gravity | `f = t^(−β)` (power) | power β |
+| **C** | Grid2Demand gamma | `f = t^b·exp(c·t)` | **both b, c** — tuned **C0→C1** |
+
+Engine **C** is the flexible one: it starts from Grid2Demand's *published* NCHRP-716 default
+(**C0**) and fits **both** gamma knobs to the data (**C1**), so two interpretable parameters
+can represent a full behavioral model's trip-length distribution — not just its mean.
+Code: [`compare_engines.py`](compare_engines.py) · registry:
+[`gen_engine_registry.py`](gen_engine_registry.py).
+
+### The calibration & validation process — magnitude first
+
+Every stage leads with **magnitude / control-total bias**, then pattern; a **red gate blocks
+interpreting the stages below it**. Gates are tagged **[CONSTRUCTION]** (identity checks that
+pass by construction — generation/distribution/mode) vs **[VALIDATION]** (independent data
+that can genuinely fail — counts, VMT/VHT).
+
+1. **Generation** vs survey `wTrips` — *[construction]*, scaled to the control.
+2. **Distribution** — per-purpose deterrence **calibrated to the survey trip length** (a
+   transparent gravity calibration, *not* a mode-logsum patch); Engine C additionally fits its
+   two gamma knobs C0→C1.
+3. **Mode** vs survey shares — stand-in until the cost registry is audited.
+4. **Pre-assignment OD** — preserves upstream totals; missing markets **labeled**, not hidden.
+5. **Assignment / counts** — *[validation]*, **magnitude bias first**, then %RMSE / R² / GEH.
+6. **VMT & VHT** — measured by facility; a **freeway-weighted deficit** points upstream to
+   missing long-distance markets, *not* to the assignment.
+
+Emit all seven gate tables with one command: `python stage_audit.py`. Control registry:
+[`config/model_controls.yml`](config/model_controls.yml). The whole thing as a model-agnostic
+multi-agent system (extensible to ABM / CT-RAMP):
+[`doc/MULTIAGENT_ARCHITECTURE.md`](doc/MULTIAGENT_ARCHITECTURE.md).
+
+### Reproduction status & to-do
+
+The full stage-gate ladder and the open items — missing markets (NHB / external / commercial
+vehicle / university / airport), the mode cost registry, the official OD-to-OD check, and the
+skim-feedback loop — are tracked in **[REPRODUCTION_TODO.md](REPRODUCTION_TODO.md)**.
+*(Interim reproduction numbers are kept local; this repo publishes the framework and TRMG2's
+own published targets.)*
+
+---
+
 An open reproduction of the **Triangle Regional Model (TRMG2)**
 full four-step demand model and traffic assignment, expressed as a **differentiable
 tensor (Flow-Through-Tensor) computational graph** and driven by a compact
