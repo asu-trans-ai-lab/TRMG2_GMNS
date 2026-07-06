@@ -61,6 +61,8 @@ and inspectable: nodes, links, and movements are plain CSVs any tool can read.
 
 ## Three demand engines + one control ladder
 
+![Demand + Supply QA — a multi-agent learning framework: three demand engines (nested-logit, power gravity, tunable gamma) on the same data feed one OD trip table; a magnitude-first gate ladder tagged construction vs validation; and a demand↔supply loop with a critic/review agent diagnosing a freeway-weighted deficit](doc/figures/multiagent_demand_supply_qa.png)
+
 A learning highlight of this transfer: the first three steps are run by **three
 interchangeable demand engines on the *same* TRMG2 data**, each judged against the *same*
 survey control totals — so the difference between them is the lesson, not an artifact of
