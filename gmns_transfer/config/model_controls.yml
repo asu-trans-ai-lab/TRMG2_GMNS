@@ -1,0 +1,117 @@
+# MPO-style control registry for the first-three-step OD review — TRMG2 reproduction.
+# Purpose: an auditable control layer ABOVE the algorithms, so downstream assignment
+# metrics cannot hide upstream demand problems. Order: seed -> generation ->
+# distribution -> mode -> pre-assignment OD -> assignment. Magnitude/control-total
+# bias FIRST at every stage, pattern second.
+# Framework: MPO_stagewise_first3steps_review.md (Zhou / TAI Lab, adapted).
+
+review_mode: planning_review          # teaching | planning_review | production_candidate
+use_published_controls: true          # prefer the model-owner (ITRE/TRMG2) report + survey
+use_nchrp_fallbacks: true             # NCHRP 716/365 transferable defaults only when local absent
+report_all_bias_first: true
+stop_on_red_gate: true
+write_stage_audit_tables: true        # review/00_input .. 05_assignment
+
+# ── STAGE 0 · seed data ──────────────────────────────────────────────────────
+input_controls:
+  household_total:   {source: se_2020, marginal: 812747, synthesized: 731913, green_abs_pct: 0.03, amber_abs_pct: 0.05}
+  person_total:      {source: se_2020, marginal: 2031531, synthesized: 1783548}
+  employment_total:  {source: se_2020, value: 1062962, green_abs_pct: 0.05, amber_abs_pct: 0.10}
+  required_markets:  # separate markets — NOT hidden inside resident demand
+    - resident_home_based        # REPRODUCED (8 HB purposes)
+    - non_home_based             # PENDING (HB->NHB Markov)
+    - external_internal          # PENDING (IEEI)
+    - internal_external
+    - external_external
+    - commercial_vehicle         # PENDING
+    - university_school          # PENDING (NC State/UNC/Duke/NCCU)
+    - airport                    # PENDING (RDU)
+    - special_generator
+
+# ── STAGE 1 · trip generation ────────────────────────────────────────────────
+trip_generation:
+  purpose_set: [W_HB_W, W_HB_O, W_HB_EK12, N_HB_OME, N_HB_OMED, N_HB_OD_Short, N_HB_OD_Long, N_HB_K12]
+  control_total_source_priority: [model_owner_report, household_travel_survey, local_trip_rate_table, nchrp_transferable_default]
+  control_total_used: household_travel_survey     # eda_scheme6 wTrips
+  total_trip_bias:   {green_abs_pct: 0.10, amber_abs_pct: 0.20}
+  purpose_share_bias:{green_abs_pp: 5, amber_abs_pp: 10}
+  pa_balance_factor: {green_range: [0.90, 1.10], amber_range: [0.80, 1.25]}
+  negative_prediction_policy: flag_and_floor
+  special_generator_policy: explicit_required
+  status: GREEN     # production = survey wTrips to +0.0% (see demand_checks.py Gate 1)
+
+# ── STAGE 2 · trip distribution ──────────────────────────────────────────────
+trip_distribution:
+  target_source_priority: [model_owner_report, household_travel_survey, od_survey_or_lbs, nchrp_transferable_default]
+  target_avg_trip_length: household_travel_survey  # eda_scheme6 wAvgTrpLen, by purpose
+  distance_metric: network_congested_time          # per-period skims (not crow-fly)
+  avg_trip_length_bias: {green_abs_pct: 0.10, amber_abs_pct: 0.20}
+  tlfd_shape_gate: required
+  intrazonal_share_gate: required
+  district_to_district_gate: required              # 12-district OD (Tab 5)
+  long_distance_market_control: required           # protects freeway/regional flows
+  # CALIBRATION: per-purpose deterrence calibrated to the wAvgTrpLen control total —
+  # a TRANSPARENT gravity calibration substituting for the deferred mode logsum, NOT
+  # a black-box patch. See make_od_4period.py "DISTRIBUTION CALIBRATION".
+  calibration: deterrence_to_control_total
+
+# ── STAGE 3 · mode choice ────────────────────────────────────────────────────
+mode_choice:
+  target_source_priority: [model_owner_report, household_travel_survey, onboard_transit_survey, nchrp_transferable_default]
+  target_mode_shares: household_travel_survey      # eda_scheme6 pct_sov/hov2/hov3/...
+  mode_share_bias: {green_abs_pp: 5, amber_abs_pp: 10}
+  # LOGSUM POLICY — the key caution: a logsum is NOT a magic patch. Do not add the
+  # mode-choice logsum to destination choice until its base utilities are explicit and
+  # auditable: auto operating cost, parking cost, value of time, transit wait/transfer
+  # penalties, walk/bike speeds, mode constants, segmentation. Until then use the survey
+  # mode shares + the transparent trip-length calibration above.
+  required_cost_parameters:
+    auto_operating_cost:      local_or_default
+    parking_cost:             local_or_default
+    value_of_time:            local_or_default
+    transit_wait_time_weight: local_or_default
+    transit_transfer_penalty: local_or_default
+    walk_speed:               local_or_default
+    bike_speed:               local_or_default
+  logsum_policy: diagnostic_only_until_costs_and_constants_are_audited
+  mode_constants_policy: local_calibration_preferred_default_allowed_with_flag
+  status: STAND_IN  # survey shares; nested logit + transit skims + cost registry pending
+
+# ── STAGE 4 · pre-assignment OD audit ────────────────────────────────────────
+preassignment_od_audit:
+  preserve_generation_totals: true
+  preserve_mode_choice_totals: true
+  vehicle_trip_conversion_check: true      # occupancy plausibility
+  implied_vmt_check: true
+  missing_market_label_required: true      # NHB/CV/external/special explicitly labeled
+
+# ── STAGE 5 · assignment / count validation ──────────────────────────────────
+assignment_validation:
+  magnitude_bias_first: true               # od_validation.py Gate 3
+  pattern_metrics_after_magnitude_only: true
+  facility_type_review: true
+  screenline_review: true
+  volume_group_review: true
+  published_target: trmg2_by_fac_type      # Freeway 10.4 ... All 34.6
+
+# ── GATE ④ · VMT & VHT system reasonableness ─────────────────────────────────
+vmt_vht_system_check:
+  script: vmt_vht_gate.py                   # measures VMT & VHT by facility from link_performance
+  magnitude_bias_first: true               # VMT low / VHT low read BEFORE any speed pattern
+  measure_vht: true                        # Sigma volume*congested_time (not just VMT)
+  by_facility_type: true
+  exclude_centroid_connectors: true        # CC links are artificial
+  structural_bias_tell: count_bias_spread  # uniform capture => ~0 spread; freeway-weighted => markets
+  diagnostic_matrix: observatory_vmt_vht   # low/low=missing trips; ok/low=congestion underrep
+  # A freeway-weighted VMT/VHT deficit is a Gate 1/2 market-coverage problem, NOT an
+  # assignment error. Do not tune the network to a demand gap.
+  system_speed_plausibility: required      # VMT/VHT vs a plausible loaded-network speed
+  published_target: itre_vmt_vht_by_facility   # PENDING from ITRE
+
+# ── blocking rules ───────────────────────────────────────────────────────────
+blocking_rules:
+  - "input RED       -> do not interpret trip generation"
+  - "generation RED  -> do not interpret distribution or assignment"
+  - "trip length RED -> do not interpret loaded-network count fit"
+  - "mode share RED  -> do not read vehicle counts as OD validation"
+  - "missing markets unlabeled -> do not claim total-demand validation"

@@ -57,6 +57,14 @@ review/v1_4period_summary.json
 review/v15_4period_summary.json
 review/district_od_AM.json
 
+# Three-engine comparison + generated coefficient registry: survey-derived interim
+# numbers. Regenerate with compare_engines.py then gen_engine_registry.py.
+review/engine_comparison.md
+review/engine_comparison.json
+config/engine_coefficients.yml
+review/vmt_vht_gate.md
+review/vmt_vht_gate.json
+
 # Logs, caches, scratch
 archive/
 *.log
